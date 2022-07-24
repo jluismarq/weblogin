@@ -2,7 +2,6 @@ import * as React from "react";
 import { NavLink } from "react-router-dom";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import '../font.css'
 
 export default function BarraSuperior() {
   return (

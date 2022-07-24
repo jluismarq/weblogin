@@ -15,6 +15,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { NavLink } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -51,7 +52,7 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <BarraSuperior />
         <Box
@@ -117,8 +118,8 @@ export default function SignUp() {
                     label="Sexo"
                     onChange={handleChange}
                   >
-                    <MenuItem value={'Masculino'}>Masculino</MenuItem>
-                    <MenuItem value={'Femenino'}>Femenino</MenuItem>
+                    <MenuItem value={"Masculino"}>Masculino</MenuItem>
+                    <MenuItem value={"Femenino"}>Femenino</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -147,25 +148,27 @@ export default function SignUp() {
                 />
               </Grid>
 
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 1, mb: 1,textTransform: "none",
+                  background: "#4979B8" }}
+                >
+                  Regístrame
+                </Button>
+              </Grid>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="#" variant="body2">
+                  <NavLink to='/login'>
+                    ¿Ya tienes una cuenta? Inicia Sesión
+                  </NavLink>
+                  </Link>
+                </Grid>
+              </Grid>
             </Grid>
-
-            <Grid container justifyContent="flex-end">
-              <Button
-                fullWidth
-                type="submit"
-                variant="contained"
-                sx={{ mt: 3, mb: 2,  width: 1/2, backgroundColor:"#4979B8" ,textDecoration:'none' }}
-              >
-                Regístrame
-              </Button>
-            </Grid>
-         
-                <Link href="#" variant="body2">
-                  ¿Ya tienes una cuenta? Inicia Sesión
-                </Link>
-          
-
-            
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
