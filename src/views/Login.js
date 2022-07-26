@@ -105,6 +105,7 @@ export default function Login() {
                 mb: 2,
                 textTransform: "none",
                 background: "#4979B8",
+                borderRadius: 5,
               }}
             >
               Iniciar Sesión

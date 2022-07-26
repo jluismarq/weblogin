@@ -153,8 +153,13 @@ export default function SignUp() {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 1, mb: 1,textTransform: "none",
-                  background: "#4979B8" }}
+                  sx={{
+                    mt: 1,
+                    mb: 1,
+                    textTransform: "none",
+                    background: "#4979B8",
+                    borderRadius: 5,
+                  }}
                 >
                   Regístrame
                 </Button>
@@ -162,9 +167,9 @@ export default function SignUp() {
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="#" variant="body2">
-                  <NavLink to='/login'>
-                    ¿Ya tienes una cuenta? Inicia Sesión
-                  </NavLink>
+                    <NavLink to="/login">
+                      ¿Ya tienes una cuenta? Inicia Sesión
+                    </NavLink>
                   </Link>
                 </Grid>
               </Grid>

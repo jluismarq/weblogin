@@ -24,7 +24,7 @@ export default function BarraSuperior() {
         >
           <Button
             variant="outlined"
-            sx={{ margin: "2px" }}
+            sx={{ margin: "2px",borderRadius:5 }}
             style={{
               color: "white",
               border: "1px solid white",
@@ -37,7 +37,7 @@ export default function BarraSuperior() {
         <NavLink to="/signup" style={{ textDecoration: "none" }}>
           <Button
             variant="outlined"
-            sx={{ margin: "10px" }}
+            sx={{ margin: "10px" ,borderRadius:5 }}
             style={{
               color: "white",
               border: "1px solid white",
