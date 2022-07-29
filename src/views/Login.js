@@ -31,9 +31,6 @@ function Copyright(props) {
 }
 
 const theme = createTheme({
-  palette: {
-    mode: "light",
-  },
   typography: {
     fontFamily: [
       "-apple-system",

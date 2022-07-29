@@ -1,28 +1,50 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BarraSuperior from "../components/BarraSuperior";
 import logo from "../assets/img/SkyDelight_logo.png";
+import CardHeader from '@mui/material/CardHeader';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      Your Website {new Date().getFullYear()}
+      SkyDelight {new Date().getFullYear()}
       {"."}
     </Typography>
   );
 }
+
+const tiers = [
+  {
+    title: 'Seguimiento',
+    description: [
+      'Dashboard con seguimiento de tus test realizados',
+      'Accesso via web',
+      'Diseño responsivo',
+    ],
+  },
+  {
+    title: 'Actividades',
+    description: [
+      'Disponible en la aplicación móvil',
+      'Actividades para relajarse de la escuela',
+      'Uso de Realidad Aumentada',
+    ],
+  },
+  {
+    title: 'Test',
+    description: [
+      'Disponible en la aplicación móvil',
+      'Ve cuán estresado estas a través de prueba psicométrica',
+    ],
+  },
+];
 
 const theme = createTheme({
   palette: {
@@ -48,41 +70,118 @@ const theme = createTheme({
 export default function Home() {
   return (
     <ThemeProvider theme={theme}>
-    <Container>
-      <Box
-        sx={{
-          bgcolor: "background.paper",
-          pt: 8,
-          pb: 6,
-        }}
-      >
-        <Grid container direction="row" alignItems="center">
-          <BarraSuperior />
-          <Grid item xs={12} sm={6} sx={{ marginTop: 10 }} order={{xs:2,sm:1}}>
-            <Typography variant="h2">Bienvenido(a) a SkyDelight</Typography>
-            <Typography variant="h5" sx={{ marginTop: 1, fontStyle: "italic" }}>
-              'La nueva forma de relajarse'
-            </Typography>
+      <Container>
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            pt: 8,
+            pb: 6,
+          }}
+        >
+          <Grid container direction="row" alignItems="center">
+            <BarraSuperior />
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              sx={{ marginTop: 10 }}
+              order={{ xs: 2, sm: 1 }}
+            >
+              <Typography variant="h2">Bienvenido(a) a SkyDelight</Typography>
+              <Typography
+                variant="h5"
+                sx={{ marginTop: 1, fontStyle: "italic" }}
+              >
+                'La nueva forma de relajarse'
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={6}
+              justifyContent="center"
+              sx={{ marginTop: 10 }}
+              order={{ xs: 1, sm: 2 }}
+            >
+              <img
+                className="logo"
+                src={logo}
+                alt="SkyDelight"
+                style={{ width: "100%", height: "auto", maxWidth: "700px" }}
+              />
+            </Grid>
           </Grid>
-          <Grid
-            container
-            item
-            xs={12}
-            sm={6}
-            justifyContent="center"
-            sx={{ marginTop: 10 }}
-            order={{xs:1,sm:2}}
+        </Box>
+
+        <Grid>
+          <Typography
+            variant="h6"
+            align="center"
+            color="text.secondary"
+            paragraph
           >
-            <img
-              className="logo"
-              src={logo}
-              alt="SkyDelight"
-              style={{ width: "100%", height: "auto", maxWidth: "700px" }}
-            />
-          </Grid>
+            Nuestra aplicación brinda una herramienta para apoyar en la
+            prevención y el seguimiento de altos niveles de estrés académico en
+            estudiantes de ESCOM , entre nuestras pincipales caracteristicas están:
+          </Typography>
         </Grid>
-      </Box>
-    </Container>
+      </Container>
+      
+      <Container maxWidth="md" component="main">
+        <Grid container spacing={5} alignItems="flex-end">
+          {tiers.map((tier) => (
+            <Grid
+              item
+              key={tier.title}
+              xs={12}
+              sm={6}
+              md={4}
+            >
+              <Card>
+                <CardHeader
+                  title={tier.title}
+                  titleTypographyProps={{ align: 'center' }}
+                  subheaderTypographyProps={{
+                    align: 'center',
+                  }}
+                  sx={{
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light'
+                        ? theme.palette.grey[200]
+                        : theme.palette.grey[700],
+                  }}
+                />
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'baseline',
+                      mb: 2,
+                    }}
+                  >
+                  </Box>
+                  <ul>
+                    {tier.description.map((line) => (
+                      <Typography
+                        component="li"
+                        variant="subtitle1"
+                        align="center"
+                        key={line}
+                      >
+                        {line}
+                      </Typography>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+        <Copyright sx={{ mt: 10, mb: 4 }} />
+      </Container>
+
     </ThemeProvider>
   );
 }

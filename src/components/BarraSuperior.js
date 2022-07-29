@@ -5,11 +5,8 @@ import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function BarraSuperior() {
-
+  
   const theme = createTheme({
-    palette: {
-      mode: "dark",
-    },
     typography: {
       fontFamily: [
         "-apple-system",
