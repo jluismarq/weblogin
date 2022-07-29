@@ -108,14 +108,7 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <Grid item align="center">
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Mantener sesión iniciada"
-              />
-            </Grid>
-
-            <Button
+             <Button
               type="submit"
               variant="contained"
               fullWidth
