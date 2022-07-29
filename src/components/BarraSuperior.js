@@ -2,9 +2,32 @@ import * as React from "react";
 import { NavLink } from "react-router-dom";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function BarraSuperior() {
+
+  const theme = createTheme({
+    palette: {
+      mode: "dark",
+    },
+    typography: {
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+    },
+  });
+
   return (
+    <ThemeProvider theme={theme}>
     <AppBar>
       <Toolbar sx={{backgroundColor:'#39567C'}}>
         <NavLink to="/" style={{ textDecoration: "none" }}>
@@ -49,5 +72,6 @@ export default function BarraSuperior() {
         </NavLink>
       </Toolbar>
     </AppBar>
+    </ThemeProvider>
   );
 }

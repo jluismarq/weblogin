@@ -24,10 +24,30 @@ function Copyright() {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    mode: "light",
+  },
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    fontSize: 16,
+  },
+});
 
 export default function Home() {
   return (
+    <ThemeProvider theme={theme}>
     <Container>
       <Box
         sx={{
@@ -63,5 +83,6 @@ export default function Home() {
         </Grid>
       </Box>
     </Container>
+    </ThemeProvider>
   );
 }
