@@ -110,9 +110,7 @@ export default function Forgot() {
               Enviar Correo de Recuperación
             </Button>
             <Grid item align="center">
-              <Link href="#" variant="body2">
                 <NavLink to="/">{"Ir a inicio"}</NavLink>
-              </Link>
             </Grid>
           </Box>
         </Box>

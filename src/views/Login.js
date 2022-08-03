@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -56,6 +54,35 @@ export default function Login() {
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    const headers = new Headers();
+    //   headers.append("KEY-CLIENT", localStorage.getItem("access"));
+    //headers.append("Content-Type", "application/json");
+    //headers.append("Access-Control-Allow-Origin", "*");
+    fetch("https://apiskydelight.herokuapp.com/usuarios/token/obtener/", {
+      // headers:,
+      method: "POST",
+      //mode: "cors",
+      //   headers: {
+      //     "KEY-CLIENT": localStorage.getItem("access"), // Peticion autenticada
+      //     "Access-Control-Allow-Origin": "*",
+      //   },
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.get("email"),
+        password: data.get("password"),
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    });
+    //.then((jsonResponse) => {
+    // localStorage.setItem("access", jsonResponse.access);
+    // localStorage.setItem("refresh", jsonResponse.refresh);
+    // });
   };
 
   return (
@@ -77,6 +104,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Iniciar Sesión
           </Typography>
+          
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -105,7 +133,7 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-             <Button
+            <Button
               type="submit"
               variant="contained"
               fullWidth
@@ -121,16 +149,12 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  <NavLink to="/forgot">¿Ólvido su contraseña?</NavLink>
-                </Link>
+                  <NavLink to="/forgot" style={({ fontWeight:"normal"})}>¿Ólvido su contraseña?</NavLink>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  <NavLink to="/signup">
+                  <NavLink to="/signup" style={({ fontWeight:"normal"})}>
                     {"¿No tienes cuenta? Regístrate"}
                   </NavLink>
-                </Link>
               </Grid>
             </Grid>
           </Box>
