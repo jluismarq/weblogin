@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { NavLink } from "react-router-dom";
+import {crearUsuario} from "../entities/users"
 
 function Copyright(props) {
   return (
@@ -58,9 +59,6 @@ export default function SignUp() {
   const handleChange = (event) => {
     setSex(event.target.value);
   };
-
-
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -71,35 +69,18 @@ export default function SignUp() {
       sex: data.get("sex"),
       password: data.get("password"),
     });
-        
-    fetch("https://apiskydelight.herokuapp.com/usuarios/crearusuario/", {
-      method: "POST",
-      //mode: "cors",
-      headers: {
-        //"Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        "KEY-CLIENT" : "",
-      },
-      body: JSON.stringify({
-        name: data.get("name"),
-        email: data.get("email"),
-        sex: data.get("sex"),
-        password: data.get("password"),
-        edad: parseInt(data.get("edad"), 10),
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then((jsonResponse) => {
-        localStorage.setItem("access", jsonResponse.access);
-        localStorage.setItem("refresh", jsonResponse.refresh);
-      }); 
+    crearUsuario( 
+    {
+      name: data.get("name"),
+      email: data.get("email"),
+      edad: parseInt(data.get("edad"), 10),
+      sex: data.get("sex"),
+      password: data.get("password"),
+    }).then((jsonResponse) => {
+      localStorage.setItem("access", jsonResponse.access);
+      localStorage.setItem("refresh", jsonResponse.refresh);
+    }); 
 };
-
-
 
   return (
     <ThemeProvider theme={theme}>
