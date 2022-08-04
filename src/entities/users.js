@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const crearUsuario=(usuario)=>{
    return axios({
                 // url is the server URL that will be used for the request
@@ -14,7 +15,7 @@ const crearUsuario=(usuario)=>{
     
     
                 // headers are custom headers to be sent
-                headers: {"KEY-CLIENT": "No te la voy a dar wey"},
+                headers: {"KEY-CLIENT":process.env.REACT_APP_API_KEY},
     
                 // params are the URL parameters to be sent with the request
                 // Must be a plain object or a URLSearchParams object
