@@ -3,15 +3,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BarraSuperior from "../components/BarraSuperior";
-import { NavLink } from "react-router-dom";
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import { recuperarPassword } from "../entities/users";
+import { cambiarPassword } from "../entities/users";
 
 function Copyright(props) {
   return (
@@ -29,9 +27,6 @@ function Copyright(props) {
 }
 
 const theme = createTheme({
-  palette: {
-    mode: "light",
-  },
   typography: {
     fontFamily: [
       "-apple-system",
@@ -49,16 +44,18 @@ const theme = createTheme({
   },
 });
 
-export default function Forgot() {
+export default function Change() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
+      password: data.get("password"),
     });
-    recuperarPassword( 
+    cambiarPassword( 
       {
         email: data.get("email"),
+        password: data.get("password"),
       }).then((jsonResponse) => {
         localStorage.setItem("access", jsonResponse.access);
         localStorage.setItem("refresh", jsonResponse.refresh);
@@ -80,11 +77,12 @@ export default function Forgot() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "#4979B8" }}>
-            <QuestionMarkIcon />
+            <PublishedWithChangesIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Recuperar Contraseña
+            Cambio de Contraseña
           </Typography>
+          
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -102,11 +100,21 @@ export default function Forgot() {
               autoComplete="email"
               autoFocus
             />
-
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              placeholder="Ingrese su contraseña"
+              name="password"
+              label="Contraseña"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
             <Button
               type="submit"
-              fullWidth
               variant="contained"
+              fullWidth
               sx={{
                 mt: 2,
                 mb: 2,
@@ -115,11 +123,8 @@ export default function Forgot() {
                 borderRadius: 5,
               }}
             >
-              Enviar Correo de Recuperación
+              Cambiar Contraseña
             </Button>
-            <Grid item align="center">
-                <NavLink to="/">{"Ir a inicio"}</NavLink>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
