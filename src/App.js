@@ -4,7 +4,7 @@ import Home from "./views/Home";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import Forgot from "./views/Forgot";
-import Dashboard from "./views/Change";
+import Change from "./views/Change";
 import Dashboard from "./views/Dashboard";
 
 function App() {
