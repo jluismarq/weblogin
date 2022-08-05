@@ -3,14 +3,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LoginIcon from "@mui/icons-material/Login";
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges';
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BarraSuperior from "../components/BarraSuperior";
-import { NavLink } from "react-router-dom";
+import { cambiarPassword } from "../entities/users";
 
 function Copyright(props) {
   return (
@@ -45,7 +44,7 @@ const theme = createTheme({
   },
 });
 
-export default function Login() {
+export default function Change() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -53,35 +52,15 @@ export default function Login() {
       email: data.get("email"),
       password: data.get("password"),
     });
-
-    //const headers = new Headers();
-    //   headers.append("KEY-CLIENT", localStorage.getItem("access"));
-    //headers.append("Content-Type", "application/json");
-    //headers.append("Access-Control-Allow-Origin", "*");
-    fetch("https://apiskydelight.herokuapp.com/usuarios/token/obtener/", {
-      // headers:,
-      method: "POST",
-      //mode: "cors",
-      //   headers: {
-      //     "KEY-CLIENT": localStorage.getItem("access"), // Peticion autenticada
-      //     "Access-Control-Allow-Origin": "*",
-      //   },
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    cambiarPassword( 
+      {
         email: data.get("email"),
         password: data.get("password"),
-      }),
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    });
-    //.then((jsonResponse) => {
-    // localStorage.setItem("access", jsonResponse.access);
-    // localStorage.setItem("refresh", jsonResponse.refresh);
-    // });
+      }).then((jsonResponse) => {
+        localStorage.setItem("access", jsonResponse.access);
+        localStorage.setItem("refresh", jsonResponse.refresh);
+      }); 
+
   };
 
   return (
@@ -98,12 +77,12 @@ export default function Login() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "#4979B8" }}>
-            <LoginIcon />
+            <PublishedWithChangesIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Iniciar Sesión
+            Cambio de Contraseña
           </Typography>
-          
+
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -144,18 +123,8 @@ export default function Login() {
                 borderRadius: 5,
               }}
             >
-              Iniciar Sesión
+              Cambiar Contraseña
             </Button>
-            <Grid container>
-              <Grid item xs>
-                  <NavLink to="/forgot" style={({ fontWeight:"normal"})}>¿Ólvido su contraseña?</NavLink>
-              </Grid>
-              <Grid item>
-                  <NavLink to="/signup" style={({ fontWeight:"normal"})}>
-                    {"¿No tienes cuenta? Regístrate"}
-                  </NavLink>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

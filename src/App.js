@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import Forgot from "./views/Forgot";
+import Dashboard from "./views/Change";
 import Dashboard from "./views/Dashboard";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/forgot" element={<Forgot />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/change" element={<Change />}></Route>
       </Routes>
     </div>
   );
