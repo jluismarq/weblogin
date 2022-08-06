@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { NavLink } from "react-router-dom";
-import {crearUsuario} from "../entities/users"
+import {crearUsuario} from "../entities/users";
 
 function Copyright(props) {
   return (
@@ -69,6 +69,8 @@ export default function SignUp() {
       sex: data.get("sex"),
       password: data.get("password"),
     });
+
+
     crearUsuario( 
     {
       name: data.get("name"),
@@ -80,6 +82,8 @@ export default function SignUp() {
       localStorage.setItem("access", jsonResponse.access);
       localStorage.setItem("refresh", jsonResponse.refresh);
     }); 
+
+
 };
 
   return (
