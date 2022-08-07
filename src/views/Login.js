@@ -11,6 +11,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BarraSuperior from "../components/BarraSuperior";
 import { NavLink } from "react-router-dom";
+import { Formik ,Form, ErrorMessage } from "formik";
+import * as Yup from 'yup';
 
 function Copyright(props) {
   return (
@@ -46,32 +48,19 @@ const theme = createTheme({
 });
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  
+  
+  const handleSubmit = (values,props) => {
+    console.log(values);
 
-    //const headers = new Headers();
-    //   headers.append("KEY-CLIENT", localStorage.getItem("access"));
-    //headers.append("Content-Type", "application/json");
-    //headers.append("Access-Control-Allow-Origin", "*");
     fetch("https://apiskydelight.herokuapp.com/usuarios/token/obtener/", {
-      // headers:,
       method: "POST",
-      //mode: "cors",
-      //   headers: {
-      //     "KEY-CLIENT": localStorage.getItem("access"), // Peticion autenticada
-      //     "Access-Control-Allow-Origin": "*",
-      //   },
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: data.get("email"),
-        password: data.get("password"),
+        email: values.email,
+        password: values.password,
       }),
     }).then((response) => {
       if (response.ok) {
@@ -83,6 +72,22 @@ export default function Login() {
     // localStorage.setItem("refresh", jsonResponse.refresh);
     // });
   };
+
+ const initialValues = {
+    email: '',
+    password: ''
+  }
+
+  const validationSchema = Yup.object().shape({
+    email: Yup
+      .string('Ingrese su email')
+      .email('Ingrese un email válido')
+      .required('El campo email es requirido'),
+    password: Yup
+      .string('Ingrese su contraseña')
+      .min(8, 'La contraseña debe tener un minimo de 8 caracteres de longitud')
+      .required('El campo contraseña es requirido'),
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -104,26 +109,26 @@ export default function Login() {
             Iniciar Sesión
           </Typography>
           
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
+          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+          {(props) => ( 
+         <Form>
+         <Box
             sx={{ mt: 1 }}
           >
             <TextField
               margin="normal"
-              required
               fullWidth
-              placeholder="Ingrese su email"
               id="email"
               label="Email"
               name="email"
-              autoComplete="email"
-              autoFocus
+              required
+              value={props.values.email}
+              onChange={props.handleChange}
+              error={props.touched.email && Boolean(props.errors.email)}
+              helperText={<ErrorMessage name='email'/>}
             />
             <TextField
               margin="normal"
-              required
               fullWidth
               placeholder="Ingrese su contraseña"
               name="password"
@@ -131,6 +136,11 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              required
+              value={props.values.password}
+              onChange={props.handleChange}
+              error={props.touched.password && Boolean(props.errors.password)}
+              helperText={<ErrorMessage name='password'/>}
             />
             <Button
               type="submit"
@@ -157,6 +167,9 @@ export default function Login() {
               </Grid>
             </Grid>
           </Box>
+          </Form>
+          )}
+        </Formik>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
