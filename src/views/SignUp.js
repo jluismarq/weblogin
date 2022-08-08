@@ -211,7 +211,7 @@ export default function SignUp() {
               
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                    <NavLink to="/login"  href="#" variant="body2">
+                    <NavLink to="/login"  href="#" style={({ fontWeight:"normal", fontSize:"0.875em", color:"#0645AD"})}>
                       ¿Ya tienes una cuenta? Inicia Sesión
                     </NavLink>
                 </Grid>

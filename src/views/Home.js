@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BarraSuperior from "../components/BarraSuperior";
 import logo from "../assets/img/SkyDelight_logo.png";
-import CardHeader from '@mui/material/CardHeader';
+import CardHeader from "@mui/material/CardHeader";
 
 function Copyright() {
   return (
@@ -22,26 +22,26 @@ function Copyright() {
 
 const tiers = [
   {
-    title: 'Seguimiento',
+    title: "Seguimiento",
     description: [
-      'Dashboard con seguimiento de tus test realizados',
-      'Accesso via web',
-      'Diseño responsivo',
+      "Dashboard con seguimiento de tus test realizados",
+      "Acceso vía web",
+      "Diseño responsivo",
     ],
   },
   {
-    title: 'Actividades',
+    title: "Actividades",
     description: [
-      'Disponible en la aplicación móvil',
-      'Actividades para relajarse de la escuela',
-      'Uso de Realidad Aumentada',
+      "Disponible en la aplicación móvil",
+      "Actividades para relajarse de la escuela",
+      "Uso de Realidad Aumentada",
     ],
   },
   {
-    title: 'Test',
+    title: "Test",
     description: [
-      'Disponible en la aplicación móvil',
-      'Ve cuán estresado estas a través de prueba psicométrica',
+      "Disponible en la aplicación móvil",
+      "Ve cuán estresado estás a través de prueba psicométrica",
     ],
   },
 ];
@@ -123,31 +123,26 @@ export default function Home() {
           >
             Nuestra aplicación brinda una herramienta para apoyar en la
             prevención y el seguimiento de altos niveles de estrés académico en
-            estudiantes de ESCOM , entre nuestras pincipales caracteristicas están:
+            estudiantes de ESCOM, entre nuestras pincipales caracteristicas
+            están:
           </Typography>
         </Grid>
       </Container>
-      
-      <Container maxWidth="md" component="main">
+
+      <Container maxWidth="md" component="main" sx={{ mb: 4 }}>
         <Grid container spacing={5} alignItems="flex-end">
           {tiers.map((tier) => (
-            <Grid
-              item
-              key={tier.title}
-              xs={12}
-              sm={6}
-              md={4}
-            >
+            <Grid item key={tier.title} xs={12} sm={6} md={4}>
               <Card>
                 <CardHeader
                   title={tier.title}
-                  titleTypographyProps={{ align: 'center' }}
+                  titleTypographyProps={{ align: "center" }}
                   subheaderTypographyProps={{
-                    align: 'center',
+                    align: "center",
                   }}
                   sx={{
                     backgroundColor: (theme) =>
-                      theme.palette.mode === 'light'
+                      theme.palette.mode === "light"
                         ? theme.palette.grey[200]
                         : theme.palette.grey[700],
                   }}
@@ -155,13 +150,12 @@ export default function Home() {
                 <CardContent>
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'baseline',
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "baseline",
                       mb: 2,
                     }}
-                  >
-                  </Box>
+                  ></Box>
                   <ul>
                     {tier.description.map((line) => (
                       <Typography
@@ -179,9 +173,28 @@ export default function Home() {
             </Grid>
           ))}
         </Grid>
-        <Copyright sx={{ mt: 10, mb: 4 }} />
       </Container>
 
+      <Box
+        component="footer"
+        sx={{
+          py: 3,
+          px: 2,
+          mt: "auto",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.grey[200]
+              : theme.palette.grey[800],
+        }}
+      >
+      
+        <Container maxWidth="sm">
+          <Typography variant="body1" align="center">
+            'La nueva forma de relajarse'
+          </Typography>
+          <Copyright />
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 }

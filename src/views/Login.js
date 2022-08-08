@@ -158,10 +158,10 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                  <NavLink to="/forgot" style={({ fontWeight:"normal"})}>¿Ólvido su contraseña?</NavLink>
+                  <NavLink to="/forgot" style={({ fontWeight:"normal", fontSize:"0.875em",color:"#0645AD"})}>¿Ólvido su contraseña?</NavLink>
               </Grid>
               <Grid item>
-                  <NavLink to="/signup" style={({ fontWeight:"normal"})}>
+                  <NavLink to="/signup" style={({ fontWeight:"normal", fontSize:"0.875em", color:"#0645AD"})}>
                     {"¿No tienes cuenta? Regístrate"}
                   </NavLink>
               </Grid>

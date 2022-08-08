@@ -116,8 +116,8 @@ export default function Forgot() {
             >
               Enviar Correo de Recuperación
             </Button>
-            <Grid item align="center">
-                <NavLink to="/">{"Ir a inicio"}</NavLink>
+            <Grid item align="center" style={({ fontWeight:"normal", fontSize:"0.875em", color: "#ff0000"})}>
+                <NavLink to="/" style={{color:"#0645AD"}}>{"Ir a inicio"}</NavLink>
             </Grid>
           </Box>
         </Box>
