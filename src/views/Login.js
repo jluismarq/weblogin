@@ -108,7 +108,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Iniciar Sesión
           </Typography>
-          
+          <Typography>LLena los siguientes campos para iniciar sesión</Typography>     
           <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
           {(props) => ( 
          <Form>

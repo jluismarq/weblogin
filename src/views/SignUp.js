@@ -104,7 +104,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Regístrate
           </Typography>
-          
+          <Typography>LLena los siguientes campos para registrarte</Typography>
           <Box
             component="form"
             onSubmit={handleSubmit}
