@@ -84,7 +84,7 @@ export default function Forgot() {
           <Typography component="h1" variant="h5">
             Recuperar Contraseña
           </Typography>
-          <Typography>Ingresa el correo con el que te registraste</Typography>
+          <Typography>Ingresa el email con el que te registraste</Typography>
           <Box
             component="form"
             onSubmit={handleSubmit}

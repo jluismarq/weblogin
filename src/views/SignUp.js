@@ -13,8 +13,11 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import FormHelperText from "@mui/material/FormHelperText";
 import { NavLink } from "react-router-dom";
-import {crearUsuario} from "../entities/users";
+import { crearUsuario } from "../entities/users";
+import { Formik, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function Copyright(props) {
   return (
@@ -53,45 +56,58 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
- 
-  const [sex, setSex] = React.useState("");
-
-  const handleChange = (event) => {
-    setSex(event.target.value);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      email: data.get("email"),
-      edad: data.get("edad"),
-      sex: data.get("sex"),
-      password: data.get("password"),
-    });
-
-
-    crearUsuario( 
-    {
-      name: data.get("name"),
-      email: data.get("email"),
-      edad: parseInt(data.get("edad"), 10),
-      sex: data.get("sex"),
-      password: data.get("password"),
+  const handleSubmit = (values, props) => {
+    console.log(values);
+    crearUsuario({
+      name: values.name,
+      email: values.email,
+      edad: parseInt(values.edad),
+      sex: values.sex,
+      password: values.confirmpassword,
     }).then((jsonResponse) => {
       localStorage.setItem("access", jsonResponse.access);
       localStorage.setItem("refresh", jsonResponse.refresh);
-    }); 
+    });
+  };
 
+  const initialValues = {
+    name: "",
+    email: "",
+    edad: "",
+    sex: "",
+    password: "",
+    confirmpassword: "",
+  };
 
-};
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(4, "Tu nombre es muy corto")
+      .matches(/^[aA-zZ\s]+$/, "Solo las letras son válidas en este campo")
+      .required("El nombre es requerido"),
+    email: Yup.string()
+      .email("Ingrese un email válido")
+      .required("El email es requirido"),
+    edad: Yup.number()
+      .integer()
+      .min(17, "La edad minima es de 17 años")
+      .max(100, "Sobrepasaste los límites de la juventud")
+      .required("La edad es requirida"),
+    sex: Yup.string()
+      .oneOf(["Masculino", "Femenino"])
+      .required("Por favor, elige un sexo"),
+    password: Yup.string()
+      .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
+      .required("El campo contraseña es requirido"),
+    confirmpassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Las contraseñas no coinciden")
+      .required("La confirmación es requirida"),
+  });
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <BarraSuperior />
-
         <Box
           sx={{
             marginTop: 11,
@@ -102,124 +118,168 @@ export default function SignUp() {
         >
           <Avatar sx={{ m: 1, bgcolor: "#4979B8" }}></Avatar>
           <Typography component="h1" variant="h5">
-            Regístrate
+            Creemos tu cuenta
           </Typography>
           <Typography>LLena los siguientes campos para registrarte</Typography>
-          <Box
-            component="form"
+
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
             onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 3 }}
           >
+            {(props) => (
+              <Form>
+                <Box sx={{ mt: 3 }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        placeholder="Ingrese su Nombre Completo"
+                        id="name"
+                        label="Nombre"
+                        name="name"
+                        value={props.values.name}
+                        onChange={props.handleChange}
+                        error={props.touched.name && Boolean(props.errors.name)}
+                        helperText={<ErrorMessage name="name" />}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        placeholder="Ingrese su Email"
+                        id="email"
+                        label="Email"
+                        name="email"
+                        autoComplete="email"
+                        value={props.values.email}
+                        onChange={props.handleChange}
+                        error={
+                          props.touched.email && Boolean(props.errors.email)
+                        }
+                        helperText={<ErrorMessage name="email" />}
+                      />
+                    </Grid>
 
-            <Grid container spacing={2}>
-              
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  placeholder="Ingrese su Nombre Completo"
-                  id="name"
-                  label="Nombre"
-                  name="name"
-                  autoFocus
-                />
-              </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                        required
+                        fullWidth
+                        placeholder="Ingrese su Edad"
+                        id="edad"
+                        label="Edad"
+                        name="edad"
+                        type="number"
+                        value={props.values.edad}
+                        onChange={props.handleChange}
+                        error={props.touched.edad && Boolean(props.errors.edad)}
+                        helperText={<ErrorMessage name="edad" />}
+                      />
+                    </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  placeholder="Ingrese su Email"
-                  id="email"
-                  label="Email"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                  required
-                  fullWidth
-                  placeholder="Ingrese su Edad"
-                  id="edad"
-                  label="Edad"
-                  name="edad"
-                  type="number"
-                />
-              </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <FormControl
+                        fullWidth
+                        error={props.touched.sex && Boolean(props.errors.sex)}
+                      >
+                        <InputLabel id="sex">Sexo</InputLabel>
+                        <Select
+                          labelId="sex"
+                          name="sex"
+                          id="sex"
+                          value={props.values.sex}
+                          label="Sexo"
+                          onChange={props.handleChange}
+                        >
+                          <MenuItem value={"Masculino"}>Masculino</MenuItem>
+                          <MenuItem value={"Femenino"}>Femenino</MenuItem>
+                        </Select>
+                        {props.touched.sex && Boolean(props.errors.sex) && (
+                          <FormHelperText error>
+                            Por favor, Elige un Sexo
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel id="sex">Sexo</InputLabel>
-                  <Select
-                    labelId="sex"
-                    name="sex"
-                    id="sex"
-                    value={sex}
-                    label="Sexo"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={"Masculino"}>Masculino</MenuItem>
-                    <MenuItem value={"Femenino"}>Femenino</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label="Contraseña"
+                        type="password"
+                        id="password"
+                        placeholder="Ingrese su Contraseña"
+                        value={props.values.password}
+                        onChange={props.handleChange}
+                        error={
+                          props.touched.password &&
+                          Boolean(props.errors.password)
+                        }
+                        helperText={<ErrorMessage name="password" />}
+                      />
+                    </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Contraseña"
-                  type="password"
-                  id="password"
-                  placeholder="Ingrese su Contraseña"
-                />
-              </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        name="confirmpassword"
+                        label="Confirme su Contraseña"
+                        type="password"
+                        id="confirmpassword"
+                        placeholder="Confirme su Contraseña"
+                        value={props.values.confirmpassword}
+                        onChange={props.handleChange}
+                        error={
+                          props.touched.confirmpassword &&
+                          Boolean(props.errors.confirmpassword)
+                        }
+                        helperText={<ErrorMessage name="confirmpassword" />}
+                      />
+                    </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="confirm-password"
-                  label="Confirme su Contraseña"
-                  type="password"
-                  id="confirm-password"
-                  placeholder="Confirme su Contraseña"
-                />
-              </Grid>
+                    <Grid item xs={12}>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{
+                          mt: 1,
+                          mb: 1,
+                          textTransform: "none",
+                          background: "#4979B8",
+                          borderRadius: 5,
+                        }}
+                      >
+                        Crear Cuenta
+                      </Button>
+                    </Grid>
 
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{
-                    mt: 1,
-                    mb: 1,
-                    textTransform: "none",
-                    background: "#4979B8",
-                    borderRadius: 5,
-                  }}
-                >
-                  Regístrame
-                </Button>
-              </Grid>
-              
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                    <NavLink to="/login"  href="#" style={({ fontWeight:"normal", fontSize:"0.875em", color:"#0645AD"})}>
-                      ¿Ya tienes una cuenta? Inicia Sesión
-                    </NavLink>
-                </Grid>
-              </Grid>
-
-            </Grid>
-          </Box>
-        
+                    <Grid container justifyContent="flex-end">
+                      <Grid item>
+                        <NavLink
+                          to="/login"
+                          href="#"
+                          style={{
+                            fontWeight: "normal",
+                            fontSize: "0.875em",
+                            color: "#0645AD",
+                          }}
+                        >
+                          ¿Ya tienes una cuenta? Inicia Sesión
+                        </NavLink>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Form>
+            )}
+          </Formik>
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>

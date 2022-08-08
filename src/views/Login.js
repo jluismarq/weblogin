@@ -11,8 +11,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BarraSuperior from "../components/BarraSuperior";
 import { NavLink } from "react-router-dom";
-import { Formik ,Form, ErrorMessage } from "formik";
-import * as Yup from 'yup';
+import { Formik, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function Copyright(props) {
   return (
@@ -48,9 +48,7 @@ const theme = createTheme({
 });
 
 export default function Login() {
-  
-  
-  const handleSubmit = (values,props) => {
+  const handleSubmit = (values, props) => {
     console.log(values);
 
     fetch("https://apiskydelight.herokuapp.com/usuarios/token/obtener/", {
@@ -73,20 +71,18 @@ export default function Login() {
     // });
   };
 
- const initialValues = {
-    email: '',
-    password: ''
-  }
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
   const validationSchema = Yup.object().shape({
-    email: Yup
-      .string('Ingrese su email')
-      .email('Ingrese un email válido')
-      .required('El campo email es requirido'),
-    password: Yup
-      .string('Ingrese su contraseña')
-      .min(8, 'La contraseña debe tener un minimo de 8 caracteres de longitud')
-      .required('El campo contraseña es requirido'),
+    email: Yup.string()
+      .email("Ingrese un email válido")
+      .required("El campo email es requirido"),
+    password: Yup.string()
+      .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
+      .required("El campo contraseña es requirido"),
   });
 
   return (
@@ -108,68 +104,88 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Iniciar Sesión
           </Typography>
-          <Typography>LLena los siguientes campos para iniciar sesión</Typography>     
-          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-          {(props) => ( 
-         <Form>
-         <Box
-            sx={{ mt: 1 }}
+          <Typography>¡Qué bueno que volviste!</Typography>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
           >
-            <TextField
-              margin="normal"
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              required
-              value={props.values.email}
-              onChange={props.handleChange}
-              error={props.touched.email && Boolean(props.errors.email)}
-              helperText={<ErrorMessage name='email'/>}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              placeholder="Ingrese su contraseña"
-              name="password"
-              label="Contraseña"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              required
-              value={props.values.password}
-              onChange={props.handleChange}
-              error={props.touched.password && Boolean(props.errors.password)}
-              helperText={<ErrorMessage name='password'/>}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              fullWidth
-              sx={{
-                mt: 2,
-                mb: 2,
-                textTransform: "none",
-                background: "#4979B8",
-                borderRadius: 5,
-              }}
-            >
-              Iniciar Sesión
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                  <NavLink to="/forgot" style={({ fontWeight:"normal", fontSize:"0.875em",color:"#0645AD"})}>¿Ólvido su contraseña?</NavLink>
-              </Grid>
-              <Grid item>
-                  <NavLink to="/signup" style={({ fontWeight:"normal", fontSize:"0.875em", color:"#0645AD"})}>
-                    {"¿No tienes cuenta? Regístrate"}
-                  </NavLink>
-              </Grid>
-            </Grid>
-          </Box>
-          </Form>
-          )}
-        </Formik>
+            {(props) => (
+              <Form>
+                <Box sx={{ mt: 1 }}>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    id="email"
+                    label="Email"
+                    name="email"
+                    required
+                    value={props.values.email}
+                    onChange={props.handleChange}
+                    error={props.touched.email && Boolean(props.errors.email)}
+                    helperText={<ErrorMessage name="email" />}
+                  />
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    placeholder="Ingrese su contraseña"
+                    name="password"
+                    label="Contraseña"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    required
+                    value={props.values.password}
+                    onChange={props.handleChange}
+                    error={
+                      props.touched.password && Boolean(props.errors.password)
+                    }
+                    helperText={<ErrorMessage name="password" />}
+                  />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      mt: 2,
+                      mb: 2,
+                      textTransform: "none",
+                      background: "#4979B8",
+                      borderRadius: 5,
+                    }}
+                  >
+                    Iniciar Sesión
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <NavLink
+                        to="/forgot"
+                        style={{
+                          fontWeight: "normal",
+                          fontSize: "0.875em",
+                          color: "#0645AD",
+                        }}
+                      >
+                        ¿Ólvido su contraseña?
+                      </NavLink>
+                    </Grid>
+                    <Grid item>
+                      <NavLink
+                        to="/signup"
+                        style={{
+                          fontWeight: "normal",
+                          fontSize: "0.875em",
+                          color: "#0645AD",
+                        }}
+                      >
+                        {"¿Sin cuenta? Crea una"}
+                      </NavLink>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Form>
+            )}
+          </Formik>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

@@ -64,7 +64,7 @@ export default function BarraSuperior() {
               textTransform: "none",
             }}
           >
-            Regístrarse
+            Crear Cuenta
           </Button>
         </NavLink>
       </Toolbar>
