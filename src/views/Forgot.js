@@ -12,6 +12,8 @@ import BarraSuperior from "../components/BarraSuperior";
 import { NavLink } from "react-router-dom";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { recuperarPassword } from "../entities/users";
+import { Formik, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function Copyright(props) {
   return (
@@ -50,20 +52,26 @@ const theme = createTheme({
 });
 
 export default function Forgot() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
+  
+  const handleSubmit = (values, props) => {
+    console.log(values);
+    recuperarPassword({
+      email: values.email,
+    }).then((jsonResponse) => {
+      localStorage.setItem("access", jsonResponse.access);
+      localStorage.setItem("refresh", jsonResponse.refresh);
     });
-    recuperarPassword( 
-      {
-        email: data.get("email"),
-      }).then((jsonResponse) => {
-        localStorage.setItem("access", jsonResponse.access);
-        localStorage.setItem("refresh", jsonResponse.refresh);
-      }); 
   };
+
+  const initialValues = {
+    email: ""
+  };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Ingrese un email válido")
+      .required("El campo email es requirido"),
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,42 +93,58 @@ export default function Forgot() {
             Recuperar Contraseña
           </Typography>
           <Typography>Ingresa el email con el que te registraste</Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              placeholder="Ingrese su email"
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 2,
-                mb: 2,
-                textTransform: "none",
-                background: "#4979B8",
-                borderRadius: 5,
-              }}
-            >
-              Enviar Correo de Recuperación
-            </Button>
-            <Grid item align="center" style={({ fontWeight:"normal", fontSize:"0.875em", color: "#ff0000"})}>
-                <NavLink to="/" style={{color:"#0645AD"}}>{"Ir a inicio"}</NavLink>
-            </Grid>
-          </Box>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {(props) => (
+              <Form>
+                <Box sx={{ mt: 1 }}>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    placeholder="Ingrese su email"
+                    id="email"
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    value={props.values.email}
+                    onChange={props.handleChange}
+                    error={props.touched.email && Boolean(props.errors.email)}
+                    helperText={<ErrorMessage name="email" />}
+                  />
+
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      mt: 2,
+                      mb: 2,
+                      textTransform: "none",
+                      background: "#4979B8",
+                      borderRadius: 5,
+                    }}
+                  >
+                    Enviar Correo de Recuperación
+                  </Button>
+                  <Grid
+                    item
+                    align="center"
+                    style={{ fontWeight: "normal", fontSize: "0.875em" }}
+                  >
+                    <NavLink to="/" style={{ color: "#0645AD" }}>
+                      {"Ir a inicio"}
+                    </NavLink>
+                  </Grid>
+                </Box>
+              </Form>
+            )}
+          </Formik>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
