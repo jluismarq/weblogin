@@ -20,6 +20,7 @@ import { mainListItems, secondaryListItems } from '../Dashcomponents/listItems';
 import Chart from '../Dashcomponents/Chart';
 import Deposits from '../Dashcomponents/Deposits';
 import Orders from '../Dashcomponents/Orders';
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 
 function Copyright(props) {
   return (
@@ -79,7 +80,23 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme();
+const mdTheme = createTheme({
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    fontSize: 16,
+  },
+});
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
@@ -95,6 +112,7 @@ function DashboardContent() {
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
+              backgroundColor:'#39567C',
             }}
           >
             <IconButton
@@ -109,6 +127,7 @@ function DashboardContent() {
             >
               <MenuIcon />
             </IconButton>
+            <VolunteerActivismIcon sx={{ mr: 2 }} style={{ color: "white" }} />
             <Typography
               component="h1"
               variant="h6"
@@ -118,11 +137,11 @@ function DashboardContent() {
             >
               SkyDelight Dashboard
             </Typography>
-            <IconButton color="inherit">
+            {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -161,20 +180,20 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12}>
                 <Paper
                   sx={{
-                    p: 2,
+                    p: 5,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 300,
                   }}
                 >
                   <Chart />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              {/* <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
@@ -182,10 +201,10 @@ function DashboardContent() {
                     flexDirection: 'column',
                     height: 240,
                   }}
-                >
-                  <Deposits />
+                > */}
+                  {/* <Deposits />
                 </Paper>
-              </Grid>
+              </Grid> */}
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
