@@ -6,18 +6,23 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 export const mainListItems = (
+
+
   <React.Fragment>
+    
     <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
+    
     <ListItemButton>
       <ListItemIcon>
         <AccountBoxIcon />
       </ListItemIcon>
       <ListItemText primary="Perfil" />
     </ListItemButton>
+
   </React.Fragment>
 );
