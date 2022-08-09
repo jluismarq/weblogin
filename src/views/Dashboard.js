@@ -9,17 +9,14 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../Dashcomponents/listItems';
+import { mainListItems} from '../Dashcomponents/listItems';
 import Chart from '../Dashcomponents/Chart';
-import Deposits from '../Dashcomponents/Deposits';
-import Orders from '../Dashcomponents/Orders';
+import Test from '../Dashcomponents/Test';
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 
 function Copyright(props) {
@@ -160,8 +157,6 @@ function DashboardContent() {
           <Divider />
           <List component="nav">
             {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -208,7 +203,7 @@ function DashboardContent() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  <Test />
                 </Paper>
               </Grid>
             </Grid>
