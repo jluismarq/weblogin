@@ -18,6 +18,7 @@ import { NavLink } from "react-router-dom";
 import { crearUsuario } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Swal from 'sweetalert2';
 
 function Copyright(props) {
   return (
@@ -55,9 +56,13 @@ const theme = createTheme({
   },
 });
 
+
+
+
+
 export default function SignUp() {
   const handleSubmit = (values, props) => {
-    console.log(values);
+    //console.log(values);
     crearUsuario({
       name: values.name,
       email: values.email,
@@ -68,6 +73,15 @@ export default function SignUp() {
       localStorage.setItem("access", jsonResponse.access);
       localStorage.setItem("refresh", jsonResponse.refresh);
     });
+
+    Swal.fire({
+      title:"Registro Exitoso",
+      text:"Te has unido a SkyDelight",
+      icon:"success",
+      button:"Aceptar",
+      confirmButtonColor: '#4979B8'
+    });
+
   };
 
   const initialValues = {
@@ -89,8 +103,8 @@ export default function SignUp() {
       .required("El email es requirido"),
     edad: Yup.number()
       .integer()
-      .min(17, "La edad minima es de 17 años")
-      .max(100, "Sobrepasaste los límites de la juventud")
+      .min(18, "La edad minima es de 17 años")
+      .max(25, "Sobrepasaste los límites de la juventud")
       .required("La edad es requirida"),
     sex: Yup.string()
       .oneOf(["Masculino", "Femenino"])
