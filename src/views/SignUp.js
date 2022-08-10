@@ -18,7 +18,7 @@ import { NavLink } from "react-router-dom";
 import { crearUsuario } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 function Copyright(props) {
   return (
@@ -56,10 +56,6 @@ const theme = createTheme({
   },
 });
 
-
-
-
-
 export default function SignUp() {
   const handleSubmit = (values, props) => {
     //console.log(values);
@@ -74,19 +70,18 @@ export default function SignUp() {
       localStorage.setItem("refresh", jsonResponse.refresh);
     });
 
-    setTimeout(()=>{
-        props.resetForm()
-        props.setSubmitting(false)
-    },2000)
+    setTimeout(() => {
+      props.resetForm();
+      props.setSubmitting(false);
+    }, 2000);
 
     Swal.fire({
-      title:"Registro Exitoso",
-      text:"Te has unido a SkyDelight",
-      icon:"success",
-      button:"Aceptar",
-      confirmButtonColor: '#4979B8'
+      title: "Registro Exitoso",
+      text: "Te has unido a SkyDelight",
+      icon: "success",
+      button: "Aceptar",
+      confirmButtonColor: "#4979B8",
     });
-
   };
 
   const initialValues = {
@@ -276,7 +271,7 @@ export default function SignUp() {
                           borderRadius: 5,
                         }}
                       >
-                        {props.isSubmitting?"Cargando":"Crear Cuenta"}
+                        {props.isSubmitting ? "Cargando" : "Crear Cuenta"}
                       </Button>
                     </Grid>
 
