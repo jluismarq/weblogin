@@ -13,6 +13,7 @@ import BarraSuperior from "../components/BarraSuperior";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { token } from "../entities/users";
 
 function Copyright(props) {
   return (
@@ -50,25 +51,14 @@ const theme = createTheme({
 export default function Login() {
   const handleSubmit = (values, props) => {
     console.log(values);
-
-    fetch("https://apiskydelight.herokuapp.com/usuarios/token/obtener/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-      }),
-    }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    });
-    //.then((jsonResponse) => {
-    // localStorage.setItem("access", jsonResponse.access);
-    // localStorage.setItem("refresh", jsonResponse.refresh);
-    // });
+    token({
+      email: values.email,
+      password: values.password,
+    })
+    .then((jsonResponse) => {
+    localStorage.setItem("access", jsonResponse.access);
+    localStorage.setItem("refresh", jsonResponse.refresh);
+   });
   };
 
   const initialValues = {
