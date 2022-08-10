@@ -74,6 +74,11 @@ export default function SignUp() {
       localStorage.setItem("refresh", jsonResponse.refresh);
     });
 
+    setTimeout(()=>{
+        props.resetForm()
+        props.setSubmitting(false)
+    },2000)
+
     Swal.fire({
       title:"Registro Exitoso",
       text:"Te has unido a SkyDelight",
@@ -262,6 +267,7 @@ export default function SignUp() {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        disabled={props.isSubmitting}
                         sx={{
                           mt: 1,
                           mb: 1,
@@ -270,7 +276,7 @@ export default function SignUp() {
                           borderRadius: 5,
                         }}
                       >
-                        Crear Cuenta
+                        {props.isSubmitting?"Cargando":"Crear Cuenta"}
                       </Button>
                     </Grid>
 
