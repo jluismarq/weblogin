@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Auth from "../hooks/Auth";
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 export default function BarraSuperior() {
   
@@ -23,6 +25,8 @@ export default function BarraSuperior() {
     },
   });
 
+  const user = Auth()
+
   return (
     <ThemeProvider theme={theme}>
     <AppBar>
@@ -38,7 +42,11 @@ export default function BarraSuperior() {
             SkyDelight
           </Typography>
         </NavLink>
-        <NavLink
+        
+         {
+          !user.isAuth?
+          <React.Fragment>
+          <NavLink
           to="/login"
           style={{ marginLeft: "auto", textDecoration: "none" }}
         >
@@ -67,6 +75,9 @@ export default function BarraSuperior() {
             Crear Cuenta
           </Button>
         </NavLink>
+        </React.Fragment>: <AccountCircle sx={{marginLeft: "auto"}} />
+         }
+         
       </Toolbar>
     </AppBar>
     </ThemeProvider>

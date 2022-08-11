@@ -18,6 +18,10 @@ import { mainListItems } from "../Dashcomponents/listItems";
 import Chart from "../Dashcomponents/Chart";
 import Test from "../Dashcomponents/Test";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import Hola from "../views/Hola";
+import Change from "../views/Change";
+
+import { BrowserRouter,Routes, Route } from "react-router-dom";
 
 
 function Copyright(props) {
@@ -170,35 +174,13 @@ function DashboardContent() {
             overflow: "auto",
           }}
         >
-          <Toolbar />
+          
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             
-            <Grid container spacing={3}>
-             
-              {/* Chart */}
-              <Grid item xs={12}>
-                <Paper
-                  sx={{
-                    p: 5,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 300,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Test />
-                </Paper>
-              </Grid>
-
-            </Grid>
-
-            <Copyright sx={{ pt: 4 }} />
+          <Routes>
+            <Route path="/hola" element={<Hola />}></Route>
+          </Routes>
+            {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>
       </Box>

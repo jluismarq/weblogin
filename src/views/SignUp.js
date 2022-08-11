@@ -121,7 +121,6 @@ export default function SignUp() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
         <CssBaseline />
-        <BarraSuperior />
         <Box
           sx={{
             marginTop: 11,

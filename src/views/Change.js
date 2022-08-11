@@ -85,7 +85,6 @@ export default function Change() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <BarraSuperior />
         <Box
           sx={{
             marginTop: 11,

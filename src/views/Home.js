@@ -79,7 +79,6 @@ export default function Home() {
           }}
         >
           <Grid container direction="row" alignItems="center">
-            <BarraSuperior />
             <Grid
               item
               xs={12}

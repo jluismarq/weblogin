@@ -14,6 +14,7 @@ import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { token } from "../entities/users";
+import  Auth  from "../hooks/Auth";
 
 function Copyright(props) {
   return (
@@ -49,6 +50,9 @@ const theme = createTheme({
 });
 
 export default function Login() {
+  
+  const AuthHook=Auth();
+  
   const handleSubmit = (values, props) => {
     console.log(values);
     token({
@@ -56,8 +60,10 @@ export default function Login() {
       password: values.password,
     })
     .then((jsonResponse) => {
-    localStorage.setItem("access", jsonResponse.access);
-    localStorage.setItem("refresh", jsonResponse.refresh);
+      console.log(jsonResponse)
+      AuthHook.Login(jsonResponse.data.access)
+      // localStorage.setItem("access", jsonResponse.access);
+      // localStorage.setItem("refresh", jsonResponse.refresh);
    });
   };
 
