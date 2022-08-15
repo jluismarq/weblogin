@@ -5,6 +5,9 @@ import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Auth from "../hooks/Auth";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
 
 export default function BarraSuperior() {
   const theme = createTheme({
@@ -25,6 +28,14 @@ export default function BarraSuperior() {
   });
 
   const user = Auth();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const renderStart = () => {
     return (
@@ -63,7 +74,39 @@ export default function BarraSuperior() {
   };
 
   const renderUserMenu = () => {
-    return <AccountCircle sx={{ marginLeft: "auto" }} />;
+    return (
+      <>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+          sx={{ marginLeft: "auto" }} 
+        >
+          <AccountCircle/>
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Perfil</MenuItem>
+          <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+        </Menu>
+      </>
+    );
   };
 
   return (

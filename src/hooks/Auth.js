@@ -1,20 +1,24 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Auth = (userdata) => {
- 
+  
   const navigate = useNavigate();
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
+
     const access = localStorage.getItem("access");
+
     if (userdata) {
       setUser(userdata);
       localStorage.setItem("access", userdata);
     } else if (access) {
       setUser(access);
     }
+
   }, [userdata]);
+
   return {
     user,
     Login: (access) => {
