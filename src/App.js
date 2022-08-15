@@ -8,6 +8,7 @@ import Change from "./views/Change";
 import Dashboard from "./views/Dashboard";
 import Hola from "./views/Hola";
 import BarraSuperior from "./components/BarraSuperior";
+import Start from "./views/Start";
 import Auth from "./hooks/Auth";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
   const renderUserMenu = () => {
     return (
       <Routes>
+        <Route path="/" element={<Start />}></Route>
         <Route path="/hola" element={<Hola />}></Route>
       </Routes>
     );
