@@ -8,6 +8,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
+import Box from '@mui/material/Box';
 
 export default function BarraSuperior() {
   const theme = createTheme({
@@ -45,6 +46,7 @@ export default function BarraSuperior() {
           style={{ marginLeft: "auto", textDecoration: "none" }}
         >
           <Button
+            size="small"
             variant="outlined"
             sx={{ margin: "2px", borderRadius: 5 }}
             style={{
@@ -59,7 +61,8 @@ export default function BarraSuperior() {
         <NavLink to="/signup" style={{ textDecoration: "none" }}>
           <Button
             variant="outlined"
-            sx={{ margin: "10px", borderRadius: 5 }}
+            size="small"
+            sx={{ margin: "2px", borderRadius: 5 }}
             style={{
               color: "white",
               border: "1px solid white",
@@ -111,10 +114,11 @@ export default function BarraSuperior() {
 
   return (
     <ThemeProvider theme={theme}>
+       <Box sx={{ flexGrow: 1 }}>
       <AppBar>
         <Toolbar sx={{ backgroundColor: "#39567C" }}>
           <NavLink to="/" style={{ textDecoration: "none" }}>
-            <VolunteerActivismIcon sx={{ mr: 2 }} style={{ color: "white" }} />
+            <VolunteerActivismIcon sx={{ mr: 2 }} style={{ color: "white" }} fontSize="small" />
             <Typography
               display="inline"
               variant="h6"
@@ -127,6 +131,7 @@ export default function BarraSuperior() {
           {!user.isAuth ? renderStart() : renderUserMenu()}
         </Toolbar>
       </AppBar>
+      </Box>
     </ThemeProvider>
   );
 }
