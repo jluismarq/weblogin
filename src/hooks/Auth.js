@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Auth = (userdata) => {
-  
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
 
+
+
+const Auth = (userdata) => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
 
     const access = localStorage.getItem("access");
@@ -30,4 +31,14 @@ const Auth = (userdata) => {
   };
 };
 
-export default Auth;
+
+const LogOut = () => {
+  const setUser = useState(null);
+  setUser(null)
+  localStorage.removeItem("access");
+};
+
+export {
+  Auth,
+  LogOut
+};

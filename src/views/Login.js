@@ -14,7 +14,8 @@ import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { token } from "../entities/users";
-import  Auth  from "../hooks/Auth";
+import { Auth }  from "../hooks/Auth";
+
 
 function Copyright(props) {
   return (
@@ -142,6 +143,7 @@ export default function Login() {
                     type="submit"
                     variant="contained"
                     fullWidth
+                    disabled={props.isSubmitting}
                     sx={{
                       mt: 2,
                       mb: 2,
@@ -150,7 +152,7 @@ export default function Login() {
                       borderRadius: 5,
                     }}
                   >
-                    Iniciar Sesión
+                    {props.isSubmitting ? "Iniciando Sesion..." : "Iniciar Sesion"}
                   </Button>
                   <Grid container>
                     <Grid item xs>

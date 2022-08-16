@@ -3,12 +3,17 @@ import { NavLink } from "react-router-dom";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Auth from "../hooks/Auth";
+import {Auth, LogOut} from "../hooks/Auth";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Box from '@mui/material/Box';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Logout from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
+import Divider from '@mui/material/Divider';
+import { useNavigate } from "react-router-dom";
 
 export default function BarraSuperior() {
   const theme = createTheme({
@@ -30,6 +35,8 @@ export default function BarraSuperior() {
 
   const user = Auth();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,6 +44,12 @@ export default function BarraSuperior() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    handleClose();
+    user.LogOut;
+    navigate("/", { replace: true });
+  }; 
 
   const renderStart = () => {
     return (
@@ -86,9 +99,9 @@ export default function BarraSuperior() {
           aria-haspopup="true"
           onClick={handleMenu}
           color="inherit"
-          sx={{ marginLeft: "auto" }} 
+          sx={{ marginLeft: "auto" }}
         >
-          <AccountCircle/>
+          <AccountCircle />
         </IconButton>
         <Menu
           id="menu-appbar"
@@ -105,8 +118,19 @@ export default function BarraSuperior() {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Perfil</MenuItem>
-          <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <PersonIcon fontSize="small" />
+            </ListItemIcon>{" "}
+            Perfil
+          </MenuItem>
+          <Divider />
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Cerrar Sesión
+          </MenuItem>
         </Menu>
       </>
     );
@@ -114,23 +138,27 @@ export default function BarraSuperior() {
 
   return (
     <ThemeProvider theme={theme}>
-       <Box sx={{ flexGrow: 1 }}>
-      <AppBar>
-        <Toolbar sx={{ backgroundColor: "#39567C" }}>
-          <NavLink to="/" style={{ textDecoration: "none" }}>
-            <VolunteerActivismIcon sx={{ mr: 2 }} style={{ color: "white" }} fontSize="small" />
-            <Typography
-              display="inline"
-              variant="h6"
-              color="inherit"
-              style={{ color: "white" }}
-            >
-              SkyDelight
-            </Typography>
-          </NavLink>
-          {!user.isAuth ? renderStart() : renderUserMenu()}
-        </Toolbar>
-      </AppBar>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar>
+          <Toolbar sx={{ backgroundColor: "#39567C" }}>
+            <NavLink to="/" style={{ textDecoration: "none" }}>
+              <VolunteerActivismIcon
+                sx={{ mr: 2 }}
+                style={{ color: "white" }}
+                fontSize="small"
+              />
+              <Typography
+                display="inline"
+                variant="h6"
+                color="inherit"
+                style={{ color: "white" }}
+              >
+                {!user.isAuth ? "SkyDelight" : "SkyDelight Dashboard"} 
+              </Typography>
+            </NavLink>
+            {!user.isAuth ? renderStart() : renderUserMenu()}
+          </Toolbar>
+        </AppBar>
       </Box>
     </ThemeProvider>
   );

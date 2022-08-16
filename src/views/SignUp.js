@@ -8,7 +8,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import BarraSuperior from "../components/BarraSuperior";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -102,7 +101,7 @@ export default function SignUp() {
       .email("Ingrese un email válido")
       .required("El email es requirido"),
     edad: Yup.number()
-      .integer()
+      .integer("Debe ser un número entero")
       .min(18, "La edad minima es de 17 años")
       .max(25, "Sobrepasaste los límites de la juventud")
       .required("La edad es requirida"),
@@ -133,7 +132,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Creemos tu cuenta
           </Typography>
-          <Typography>LLena los siguientes campos para registrarte</Typography>
+          <Typography align="center">LLena los siguientes campos para registrarte</Typography>
 
           <Formik
             initialValues={initialValues}

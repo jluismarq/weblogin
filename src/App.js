@@ -9,7 +9,7 @@ import Dashboard from "./views/Dashboard";
 import Hola from "./views/Hola";
 import BarraSuperior from "./components/BarraSuperior";
 import Start from "./views/Start";
-import Auth from "./hooks/Auth";
+import { Auth } from "./hooks/Auth";
 
 function App() {
   const user = Auth();
