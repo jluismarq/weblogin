@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {Auth, LogOut} from "../hooks/Auth";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
@@ -14,6 +13,7 @@ import Logout from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function BarraSuperior() {
   const theme = createTheme({
@@ -33,7 +33,7 @@ export default function BarraSuperior() {
     },
   });
 
-  const user = Auth();
+  const user = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ export default function BarraSuperior() {
 
   const handleLogout = () => {
     handleClose();
-    user.LogOut;
+    user.signout();
     navigate("/", { replace: true });
   }; 
 
@@ -156,7 +156,7 @@ export default function BarraSuperior() {
                 {!user.isAuth ? "SkyDelight" : "SkyDelight Dashboard"} 
               </Typography>
             </NavLink>
-            {!user.isAuth ? renderStart() : renderUserMenu()}
+            {!user.user ? renderStart() : renderUserMenu()}
           </Toolbar>
         </AppBar>
       </Box>
