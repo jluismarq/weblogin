@@ -109,6 +109,7 @@ export default function SignUp() {
       .oneOf(["Masculino", "Femenino"])
       .required("Por favor, elige un sexo"),
     password: Yup.string()
+      .matches(/^\S*$/, 'Los espacios en blanco no son permitidos')
       .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
       .required("El campo contraseña es requirido"),
     confirmpassword: Yup.string()

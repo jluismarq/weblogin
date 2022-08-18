@@ -8,7 +8,6 @@ import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import BarraSuperior from "../components/BarraSuperior";
 import { cambiarPassword } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -74,6 +73,7 @@ export default function Change() {
       .email("Ingrese un email válido")
       .required("El email es requirido"),
     password: Yup.string()
+      .matches(/^\S*$/, 'Los espacios en blanco no son permitidos')
       .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
       .required("El campo contraseña es requirido"),
     confirmpassword: Yup.string()
