@@ -8,7 +8,7 @@ function App() {
     <div>
       <ProvideAuth>
         <BarraSuperior />
-        <RoutesView></RoutesView>
+        <RoutesView />
       </ProvideAuth>
     </div>
   );

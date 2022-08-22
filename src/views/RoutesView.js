@@ -8,6 +8,7 @@ import Change from "./Change";
 import Dashboard from "./Dashboard";
 import Hola from "./Hola";
 import Start from "./Start";
+import Profile from "./Profile";
 import { useAuth } from "../hooks/useAuth";
 
 const RoutesView = () => {
@@ -34,6 +35,7 @@ const RoutesView = () => {
       <Routes>
         <Route path="/" element={<Start />}></Route>
         <Route path="/hola" element={<Hola />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     );
   };

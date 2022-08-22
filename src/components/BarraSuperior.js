@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Box from '@mui/material/Box';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import Logout from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import Divider from '@mui/material/Divider';
@@ -118,11 +119,17 @@ export default function BarraSuperior() {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleClose} component={NavLink} to="/profile">
             <ListItemIcon>
               <PersonIcon fontSize="small" />
             </ListItemIcon>{" "}
             Perfil
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>{" "}
+            Dashboard
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleLogout}>

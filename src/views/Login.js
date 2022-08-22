@@ -56,7 +56,6 @@ export default function Login() {
   const navigate = useNavigate();
   
   const handleSubmit = (values, props) => {
-    //console.log(values);
     auth.signin({
       email: values.email,
       password: values.password,
