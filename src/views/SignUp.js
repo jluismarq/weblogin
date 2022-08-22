@@ -95,10 +95,12 @@ export default function SignUp() {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(4, "Tu nombre es muy corto")
+      .max(50, "Solo soportamos hasta 50 caracteres")
       .matches(/^[aA-zZ\s]+$/, "Solo las letras son válidas en este campo")
       .required("El nombre es requerido"),
     email: Yup.string()
       .email("Ingrese un email válido")
+      .max(50, "Solo soportamos hasta 50 caracteres")
       .required("El email es requirido"),
     edad: Yup.number()
       .integer("Debe ser un número entero")
@@ -111,9 +113,11 @@ export default function SignUp() {
     password: Yup.string()
       .matches(/^\S*$/, 'Los espacios en blanco no son permitidos')
       .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
+      .max(50, "Solo soportamos hasta 50 caracteres")
       .required("El campo contraseña es requirido"),
     confirmpassword: Yup.string()
       .oneOf([Yup.ref("password")], "Las contraseñas no coinciden")
+      .max(50, "Solo soportamos hasta 50 caracteres")
       .required("La confirmación es requirida"),
   });
 

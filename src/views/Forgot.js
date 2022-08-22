@@ -83,6 +83,7 @@ export default function Forgot() {
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Ingrese un email válido")
+      .max(50, "Solo soportamos hasta 50 caracteres")
       .required("El campo email es requirido"),
   });
 
