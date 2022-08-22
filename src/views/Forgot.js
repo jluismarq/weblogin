@@ -8,7 +8,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import BarraSuperior from "../components/BarraSuperior";
 import { NavLink } from "react-router-dom";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { recuperarPassword } from "../entities/users";
