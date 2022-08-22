@@ -23,9 +23,15 @@ function Copyright(props) {
   );
 }
 
+
+
 const theme = createTheme();
 
 export default function Profile() {
+
+  var User = localStorage.getItem('user');
+  var currentUser = JSON.parse(User)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -47,10 +53,11 @@ export default function Profile() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 100, height: 100, bgcolor: "#4979B8" }} >
+          <Avatar sx={{ m: 1, width: 100, height: 100, bgcolor: "#4979B8", fontSize: '50px' }} >
+           {currentUser.name.split(' ')[0][0]}
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            {currentUser.name}
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -61,8 +68,9 @@ export default function Profile() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="Nombre"
                   autoFocus
+                  defaultValue={currentUser.name}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -70,30 +78,33 @@ export default function Profile() {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="Sexo"
                   name="lastName"
                   autoComplete="family-name"
+                  defaultValue={currentUser.sex}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   autoComplete="email"
+                  defaultValue={currentUser.user}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   fullWidth
                   name="password"
-                  label="Password"
-                  type="password"
+                  label="Edad"
                   id="password"
                   autoComplete="new-password"
+                  defaultValue={currentUser.age}
                 />
               </Grid>
             </Grid>
