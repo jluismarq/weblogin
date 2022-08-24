@@ -14,6 +14,9 @@ import { recuperarPassword } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import InputAdornment from "@mui/material/InputAdornment";
+
 
 function Copyright(props) {
   return (
@@ -118,7 +121,7 @@ export default function Forgot() {
                     margin="normal"
                     required
                     fullWidth
-                    placeholder="Ingrese su email"
+                    placeholder="ejemplo@mail.com"
                     id="email"
                     label="Email"
                     name="email"
@@ -128,6 +131,13 @@ export default function Forgot() {
                     onChange={props.handleChange}
                     error={props.touched.email && Boolean(props.errors.email)}
                     helperText={<ErrorMessage name="email" />}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <MailOutlineIcon fontSize="small" />
+                        </InputAdornment>
+                      ),
+                    }}
                   />
 
                   <Button

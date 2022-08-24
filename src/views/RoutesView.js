@@ -6,7 +6,6 @@ import SignUp from "./SignUp";
 import Forgot from "./Forgot";
 import Change from "./Change";
 import Dashboard from "./Dashboard";
-import Hola from "./Hola";
 import Start from "./Start";
 import Profile from "./Profile";
 import { useAuth } from "../hooks/useAuth";
@@ -34,7 +33,6 @@ const RoutesView = () => {
     return(
       <Routes>
         <Route path="/" element={<Start />}></Route>
-        <Route path="/hola" element={<Hola />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     );

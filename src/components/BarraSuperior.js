@@ -7,14 +7,16 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import Box from '@mui/material/Box';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import Logout from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
-import Divider from '@mui/material/Divider';
+import Box from "@mui/material/Box";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import Logout from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import Badge from "@mui/material/Badge";
+import { styled } from "@mui/material/styles";
 
 export default function BarraSuperior() {
   const theme = createTheme({
@@ -50,7 +52,36 @@ export default function BarraSuperior() {
     handleClose();
     user.signout();
     navigate("/", { replace: true });
-  }; 
+  };
+
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    "& .MuiBadge-badge": {
+      backgroundColor: "#44b700",
+      color: "#44b700",
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      "&::after": {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        borderRadius: "50%",
+        animation: "ripple 1.2s infinite ease-in-out",
+        border: "1px solid currentColor",
+        content: '""',
+      },
+    },
+    "@keyframes ripple": {
+      "0%": {
+        transform: "scale(.8)",
+        opacity: 1,
+      },
+      "100%": {
+        transform: "scale(2.4)",
+        opacity: 0,
+      },
+    },
+  }));
 
   const renderStart = () => {
     return (
@@ -102,7 +133,13 @@ export default function BarraSuperior() {
           color="inherit"
           sx={{ marginLeft: "auto" }}
         >
-          <AccountCircle />
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            variant="dot"
+          >
+            <AccountCircle />
+          </StyledBadge>
         </IconButton>
         <Menu
           id="menu-appbar"
@@ -119,17 +156,17 @@ export default function BarraSuperior() {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose} component={NavLink} to="/profile">
-            <ListItemIcon>
-              <PersonIcon fontSize="small" />
-            </ListItemIcon>{" "}
-            Perfil
-          </MenuItem>
           <MenuItem onClick={handleClose}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
             </ListItemIcon>{" "}
             Dashboard
+          </MenuItem>
+          <MenuItem onClick={handleClose} component={NavLink} to="/profile">
+            <ListItemIcon>
+              <PersonIcon fontSize="small" />
+            </ListItemIcon>{" "}
+            Perfil
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleLogout}>
@@ -160,7 +197,7 @@ export default function BarraSuperior() {
                 color="inherit"
                 style={{ color: "white" }}
               >
-                {!user.isAuth ? "SkyDelight" : "SkyDelight Dashboard"} 
+                {!user.user ? "SkyDelight" : "SkyDelight Dashboard"}
               </Typography>
             </NavLink>
             {!user.user ? renderStart() : renderUserMenu()}

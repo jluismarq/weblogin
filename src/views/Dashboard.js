@@ -18,7 +18,6 @@ import { mainListItems } from "../Dashcomponents/listItems";
 import Chart from "../Dashcomponents/Chart";
 import Test from "../Dashcomponents/Test";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import Hola from "../views/Hola";
 import Change from "../views/Change";
 
 import { BrowserRouter,Routes, Route } from "react-router-dom";
@@ -177,9 +176,7 @@ function DashboardContent() {
           
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             
-          <Routes>
-            <Route path="/hola" element={<Hola />}></Route>
-          </Routes>
+        
             {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
         </Box>

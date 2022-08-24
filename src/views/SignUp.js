@@ -16,8 +16,17 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { NavLink } from "react-router-dom";
 import { crearUsuario } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
+import InputAdornment from "@mui/material/InputAdornment";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
+import { useState } from "react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 
 function Copyright(props) {
   return (
@@ -56,6 +65,10 @@ const theme = createTheme({
 });
 
 export default function SignUp() {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
   const handleSubmit = (values, props) => {
     //console.log(values);
     crearUsuario({
@@ -111,7 +124,7 @@ export default function SignUp() {
       .oneOf(["Masculino", "Femenino"])
       .required("Por favor, elige un sexo"),
     password: Yup.string()
-      .matches(/^\S*$/, 'Los espacios en blanco no son permitidos')
+      .matches(/^\S*$/, "Los espacios en blanco no son permitidos")
       .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
       .max(50, "Solo soportamos hasta 50 caracteres")
       .required("El campo contraseña es requirido"),
@@ -137,7 +150,9 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Creemos tu cuenta
           </Typography>
-          <Typography align="center">LLena los siguientes campos para registrarte</Typography>
+          <Typography align="center">
+            LLena los siguientes campos para registrarte
+          </Typography>
 
           <Formik
             initialValues={initialValues}
@@ -152,7 +167,7 @@ export default function SignUp() {
                       <TextField
                         required
                         fullWidth
-                        placeholder="Ingrese su Nombre Completo"
+                        placeholder="Ingrese su Nombre"
                         id="name"
                         label="Nombre"
                         name="name"
@@ -160,6 +175,13 @@ export default function SignUp() {
                         onChange={props.handleChange}
                         error={props.touched.name && Boolean(props.errors.name)}
                         helperText={<ErrorMessage name="name" />}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonOutlineOutlinedIcon fontSize="small" />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -177,6 +199,13 @@ export default function SignUp() {
                           props.touched.email && Boolean(props.errors.email)
                         }
                         helperText={<ErrorMessage name="email" />}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <MailOutlineIcon fontSize="small" />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
 
@@ -194,6 +223,13 @@ export default function SignUp() {
                         onChange={props.handleChange}
                         error={props.touched.edad && Boolean(props.errors.edad)}
                         helperText={<ErrorMessage name="edad" />}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <CakeOutlinedIcon fontSize="small" />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
 
@@ -228,7 +264,7 @@ export default function SignUp() {
                         fullWidth
                         name="password"
                         label="Contraseña"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         id="password"
                         placeholder="Ingrese su Contraseña"
                         value={props.values.password}
@@ -238,6 +274,29 @@ export default function SignUp() {
                           Boolean(props.errors.password)
                         }
                         helperText={<ErrorMessage name="password" />}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <VpnKeyOutlinedIcon fontSize="small" />
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                fontSize="small"
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                              >
+                                {showPassword ? (
+                                  <Visibility />
+                                ) : (
+                                  <VisibilityOff />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
 
@@ -247,7 +306,7 @@ export default function SignUp() {
                         fullWidth
                         name="confirmpassword"
                         label="Confirme su Contraseña"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         id="confirmpassword"
                         placeholder="Confirme su Contraseña"
                         value={props.values.confirmpassword}
@@ -257,6 +316,29 @@ export default function SignUp() {
                           Boolean(props.errors.confirmpassword)
                         }
                         helperText={<ErrorMessage name="confirmpassword" />}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <VpnKeyOutlinedIcon fontSize="small" />
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                fontSize="small"
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                              >
+                                {showPassword ? (
+                                  <Visibility />
+                                ) : (
+                                  <VisibilityOff />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
 
