@@ -57,7 +57,7 @@ export default function Profile() {
            {currentUser.name.split(' ')[0][0]}
           </Avatar>
           <Typography component="h1" variant="h5">
-            {currentUser.name}
+            {currentUser.user}
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -82,17 +82,6 @@ export default function Profile() {
                   name="lastName"
                   autoComplete="family-name"
                   defaultValue={currentUser.sex}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email"
-                  name="email"
-                  autoComplete="email"
-                  defaultValue={currentUser.user}
                 />
               </Grid>
               <Grid item xs={12}>

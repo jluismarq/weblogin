@@ -27,8 +27,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import { useAuth } from "../hooks/useAuth";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 
 function Copyright(props) {
   return (
@@ -66,25 +64,11 @@ const theme = createTheme({
   },
 });
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const auth = useAuth();
-  const [open, setOpen] = React.useState(true);
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
 
   const handleSubmit = (values, props) => {
     
@@ -103,6 +87,8 @@ export default function SignUp() {
         title: "Registro Exitoso",
         text: "Te has unido a SkyDelight",
          icon: "success",
+         showConfirmButton: false,
+         timer: 3000,
        });
     }).catch(error => {
         Swal.fire({
