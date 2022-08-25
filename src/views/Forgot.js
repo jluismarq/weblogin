@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { recuperarPassword } from "../entities/users";
@@ -33,7 +33,7 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     mode: "light",
   },
@@ -53,6 +53,8 @@ const theme = createTheme({
     fontSize: 16,
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 export default function Forgot() {
   const handleSubmit = (values, props) => {

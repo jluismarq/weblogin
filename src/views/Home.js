@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider,  responsiveFontSizes } from "@mui/material/styles";
 import logo from "../assets/img/SkyDelight_logo.png";
 import CardHeader from "@mui/material/CardHeader";
 
@@ -40,12 +40,12 @@ const tiers = [
     title: "Test",
     description: [
       "Disponible en la aplicación móvil",
-      "Ve cuán estresado estás a través de prueba psicométrica",
+      "Ve cuán estresado estás a través de una prueba psicométrica",
     ],
   },
 ];
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     mode: "light",
   },
@@ -66,6 +66,8 @@ const theme = createTheme({
   },
 });
 
+theme = responsiveFontSizes(theme);
+
 export default function Home() {
   return (
     <ThemeProvider theme={theme}>
@@ -82,13 +84,15 @@ export default function Home() {
               item
               xs={12}
               sm={6}
-              sx={{ marginTop: 10 }}
+              sx={{ marginTop: 5 }}
               order={{ xs: 2, sm: 1 }}
             >
-              <Typography variant="h2">Bienvenido(a) a SkyDelight</Typography>
+              <Typography variant="h2" align="center" color="text.primary">Bienvenido (a) a SkyDelight</Typography>
               <Typography
                 variant="h5"
-                sx={{ marginTop: 1, fontStyle: "italic" }}
+                sx={{ marginTop: 1, fontStyle: "italic"}}
+                align="center"
+                color="info.main"
               >
                 'La nueva forma de relajarse'
               </Typography>
@@ -106,7 +110,7 @@ export default function Home() {
                 className="logo"
                 src={logo}
                 alt="SkyDelight"
-                style={{ width: "100%", height: "auto", maxWidth: "700px" }}
+                style={{ width: "100%", height: "auto", maxWidth: "280px" }}
               />
             </Grid>
           </Grid>
@@ -187,7 +191,7 @@ export default function Home() {
       >
       
         <Container maxWidth="sm">
-          <Typography variant="body1" align="center">
+          <Typography variant="body1" align="center" fontStyle="italic">
             'La nueva forma de relajarse'
           </Typography>
           <Copyright />

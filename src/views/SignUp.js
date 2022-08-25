@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -43,7 +43,7 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     mode: "light",
   },
@@ -63,6 +63,8 @@ const theme = createTheme({
     fontSize: 16,
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -119,7 +121,7 @@ export default function SignUp() {
     name: Yup.string()
       .min(4, "Tu nombre es muy corto")
       .max(50, "Solo soportamos hasta 50 caracteres")
-      .matches(/^[aA-zZ\s]+$/, "Solo las letras son válidas en este campo")
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Solo las letras son válidas en este campo")
       .required("El nombre es requerido"),
     email: Yup.string()
       .email("Ingrese un email válido")

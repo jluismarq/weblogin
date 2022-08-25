@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import BarraSuperior from "../components/BarraSuperior";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
@@ -39,7 +39,10 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme({
+let theme = createTheme({
+  palette: {
+    mode: "light",
+  },
   typography: {
     fontFamily: [
       "-apple-system",
@@ -56,6 +59,8 @@ const theme = createTheme({
     fontSize: 16,
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 export default function Login() {
   const auth = useAuth();

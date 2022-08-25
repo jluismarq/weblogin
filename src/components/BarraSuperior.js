@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavLink } from "react-router-dom";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider,  responsiveFontSizes } from "@mui/material/styles";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
@@ -18,24 +18,32 @@ import { useAuth } from "../hooks/useAuth";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 
-export default function BarraSuperior() {
-  const theme = createTheme({
-    typography: {
-      fontFamily: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        '"Segoe UI"',
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(","),
-    },
-  });
 
+let theme = createTheme({
+  palette: {
+    mode: "light",
+  },
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    fontSize: 16,
+  },
+});
+
+theme = responsiveFontSizes(theme);
+
+
+export default function BarraSuperior() {
   const user = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
@@ -107,7 +115,7 @@ export default function BarraSuperior() {
           <Button
             variant="outlined"
             size="small"
-            sx={{ margin: "2px", borderRadius: 5 }}
+            sx={{ margin: "2px", borderRadius: 5,  display: { xs: 'none', sm: 'block' }  }}
             style={{
               color: "white",
               border: "1px solid white",
