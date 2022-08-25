@@ -32,7 +32,7 @@ const RoutesView = () => {
     console.log("renderUserMenu");
     return(
       <Routes>
-        <Route path="/" element={<Start />}></Route>
+        <Route path="/" element={<Dashboard />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     );

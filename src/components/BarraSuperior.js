@@ -156,7 +156,7 @@ export default function BarraSuperior() {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleClose} component={NavLink} to="/">
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
             </ListItemIcon>{" "}
