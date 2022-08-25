@@ -120,21 +120,7 @@ export default function Profile() {
                 borderRadius: 5,
               }}
             >
-              Aplicar Cambios
-            </Button>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 0,
-                mb: 2,
-                textTransform: "none",
-                background: "#4979B8",
-                borderRadius: 5,
-              }}
-            >
-              Cancelar Cambios
+              Actualizar Perfil
             </Button>
           </Box>
         </Box>

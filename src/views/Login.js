@@ -22,6 +22,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import Swal from "sweetalert2";
 
 function Copyright(props) {
   return (
@@ -88,6 +89,18 @@ export default function Login() {
       })
       .then(() => {
         navigate("/", { replace: true });
+      }).catch(error => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error,
+          showConfirmButton: false,
+          timer: 3000,
+        }
+        )
+        props.resetForm();
+        props.setSubmitting(false);
       });
   };
   

@@ -14,7 +14,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import FormHelperText from "@mui/material/FormHelperText";
 import { NavLink } from "react-router-dom";
-import { crearUsuario } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
 import InputAdornment from "@mui/material/InputAdornment";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -27,6 +26,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
+import { useAuth } from "../hooks/useAuth";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 function Copyright(props) {
   return (
@@ -64,36 +66,58 @@ const theme = createTheme({
   },
 });
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  const auth = useAuth();
+  const [open, setOpen] = React.useState(true);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
 
   const handleSubmit = (values, props) => {
-    //console.log(values);
-    crearUsuario({
+    
+    auth.signup({
       name: values.name,
       email: values.email,
       edad: parseInt(values.edad),
       sex: values.sex,
       password: values.confirmpassword,
     }).then((jsonResponse) => {
-      localStorage.setItem("access", jsonResponse.access);
-      localStorage.setItem("refresh", jsonResponse.refresh);
+      setTimeout(() => {
+        props.resetForm();
+        props.setSubmitting(false);
+      }, 2000);
+       Swal.fire({
+        title: "Registro Exitoso",
+        text: "Te has unido a SkyDelight",
+         icon: "success",
+       });
+    }).catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error,
+          showConfirmButton: false,
+          timer: 3000,
+        }
+        )
+        props.resetForm();
+        props.setSubmitting(false);
     });
 
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
-
-    Swal.fire({
-      title: "Registro Exitoso",
-      text: "Te has unido a SkyDelight",
-      icon: "success",
-      button: "Aceptar",
-      confirmButtonColor: "#4979B8",
-    });
+    
   };
 
   const initialValues = {
