@@ -64,20 +64,22 @@ export default function Forgot() {
     }).then((jsonResponse) => {
       localStorage.setItem("access", jsonResponse.access);
       localStorage.setItem("refresh", jsonResponse.refresh);
+
+      setTimeout(() => {
+        props.resetForm();
+        props.setSubmitting(false);
+      }, 2000);
+  
+      Swal.fire({
+        title: "Correo Enviado",
+        text: "Espera nuestro correo de recuperación",
+        icon: "success",
+        button: "Aceptar",
+        confirmButtonColor: "#4979B8",
+      });
     });
 
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
-
-    Swal.fire({
-      title: "Correo Enviado",
-      text: "Espera nuestro correo de recuperación",
-      icon: "success",
-      button: "Aceptar",
-      confirmButtonColor: "#4979B8",
-    });
+    
   };
 
   const initialValues = {
@@ -106,10 +108,10 @@ export default function Forgot() {
           <Avatar sx={{ m: 1, bgcolor: "#4979B8" }}>
             <QuestionMarkIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" align="center">
             Recuperar Contraseña
           </Typography>
-          <Typography>Ingresa el email con el que te registraste</Typography>
+          <Typography align="center">Ingresa el email con el que te registraste</Typography>
 
           <Formik
             initialValues={initialValues}

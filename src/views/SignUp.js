@@ -159,7 +159,7 @@ export default function SignUp() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "#4979B8" }}></Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" align="center">
             Creemos tu cuenta
           </Typography>
           <Typography align="center">

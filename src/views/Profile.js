@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 
 function Copyright(props) {
   return (
@@ -23,9 +23,28 @@ function Copyright(props) {
   );
 }
 
+let theme = createTheme({
+  palette: {
+    mode: "light",
+  },
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    fontSize: 16,
+  },
+});
 
-
-const theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 export default function Profile() {
 
@@ -56,7 +75,7 @@ export default function Profile() {
           <Avatar sx={{ m: 1, width: 100, height: 100, bgcolor: "#4979B8", fontSize: '50px' }} >
            {currentUser.name.split(' ')[0][0]}
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" align="center">
             {currentUser.user}
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
