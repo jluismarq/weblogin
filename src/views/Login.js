@@ -10,7 +10,6 @@ import LoginIcon from "@mui/icons-material/Login";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
-import BarraSuperior from "../components/BarraSuperior";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -116,7 +115,6 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <BarraSuperior />
         <Box
           sx={{
             marginTop: 11,
