@@ -133,7 +133,6 @@ export default function Forgot() {
                     label="Email"
                     name="email"
                     autoComplete="email"
-                    autoFocus
                     value={props.values.email}
                     onChange={props.handleChange}
                     error={props.touched.email && Boolean(props.errors.email)}
