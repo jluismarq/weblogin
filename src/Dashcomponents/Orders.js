@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
+import TableContainer from '@mui/material/TableContainer';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -56,7 +56,8 @@ export default function Orders() {
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
-      <Table size="small">
+      <TableContainer>
+      <Table sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>
@@ -68,7 +69,7 @@ export default function Orders() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
+            <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
@@ -78,9 +79,7 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
+      </TableContainer>
     </React.Fragment>
   );
 }
