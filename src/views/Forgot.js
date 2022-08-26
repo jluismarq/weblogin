@@ -7,7 +7,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { recuperarPassword } from "../entities/users";
@@ -16,7 +20,6 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import InputAdornment from "@mui/material/InputAdornment";
-
 
 function Copyright(props) {
   return (
@@ -69,7 +72,7 @@ export default function Forgot() {
         props.resetForm();
         props.setSubmitting(false);
       }, 2000);
-  
+
       Swal.fire({
         title: "Correo Enviado",
         text: "Espera nuestro correo de recuperación",
@@ -78,8 +81,6 @@ export default function Forgot() {
         confirmButtonColor: "#4979B8",
       });
     });
-
-    
   };
 
   const initialValues = {
@@ -111,7 +112,9 @@ export default function Forgot() {
           <Typography component="h1" variant="h5" align="center">
             Recuperar Contraseña
           </Typography>
-          <Typography align="center">Ingresa el email con el que te registraste</Typography>
+          <Typography align="center">
+            Ingresa el email con el que te registraste
+          </Typography>
 
           <Formik
             initialValues={initialValues}
