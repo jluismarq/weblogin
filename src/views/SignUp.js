@@ -19,7 +19,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import * as Yup from "yup";
-import Swal from "sweetalert2";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
@@ -27,6 +26,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import { useAuth } from "../hooks/useAuth";
+import { useAlert } from "../hooks/useAlert";
 
 function Copyright(props) {
   return (
@@ -71,7 +71,7 @@ export default function SignUp() {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const auth = useAuth();
-
+  const alert = useAlert();
   const handleSubmit = (values, props) => {
     
     auth.signup({
@@ -85,27 +85,11 @@ export default function SignUp() {
         props.resetForm();
         props.setSubmitting(false);
       }, 2000);
-       Swal.fire({
-        title: "Registro Exitoso",
-        text: "Te has unido a SkyDelight",
-         icon: "success",
-         showConfirmButton: false,
-         timer: 3000,
-       });
+       alert.createAlert({severity:"success", message:"Registro exitoso"});
     }).catch(error => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error,
-          showConfirmButton: false,
-          timer: 3000,
-        }
-        )
-        props.resetForm();
+        alert.createAlert({severity:"error", message:" "+ error});
         props.setSubmitting(false);
     });
-
-    
   };
 
   const initialValues = {

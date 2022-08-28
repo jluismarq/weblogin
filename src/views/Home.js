@@ -5,7 +5,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider,  responsiveFontSizes } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import logo from "../assets/img/SkyDelight_logo.png";
 import CardHeader from "@mui/material/CardHeader";
 
@@ -13,7 +17,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      SkyDelight {new Date().getFullYear()}
+      {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -75,8 +79,8 @@ export default function Home() {
         <Box
           sx={{
             bgcolor: "background.paper",
-            pt: 8,
-            pb: 6,
+            pt: 2,
+            pb: 5,
           }}
         >
           <Grid container direction="row" alignItems="center">
@@ -87,10 +91,12 @@ export default function Home() {
               sx={{ marginTop: 5 }}
               order={{ xs: 2, sm: 1 }}
             >
-              <Typography variant="h2" align="center" color="text.primary">Bienvenido (a) a SkyDelight</Typography>
+              <Typography variant="h2" align="center" color="text.primary">
+                Bienvenido (a) a SkyDelight
+              </Typography>
               <Typography
                 variant="h5"
-                sx={{ marginTop: 1, fontStyle: "italic"}}
+                sx={{ marginTop: 1, fontStyle: "italic" }}
                 align="center"
                 color="info.main"
               >
@@ -116,12 +122,15 @@ export default function Home() {
           </Grid>
         </Box>
 
-        <Grid>
+        <Grid rowSpacing={2} >
           <Typography
             variant="h6"
             align="center"
             color="text.secondary"
             paragraph
+            sx={{
+              pb: 2,
+            }}
           >
             Nuestra aplicación brinda una herramienta para apoyar en la
             prevención y el seguimiento de altos niveles de estrés académico en
@@ -180,19 +189,18 @@ export default function Home() {
       <Box
         component="footer"
         sx={{
-          py: 3,
-          px: 2,
-          mt: "auto",
+          py: 4,
+          mt: 'auto',
+          width: '100%',
           backgroundColor: (theme) =>
             theme.palette.mode === "light"
               ? theme.palette.grey[200]
               : theme.palette.grey[800],
         }}
       >
-      
         <Container maxWidth="sm">
           <Typography variant="body1" align="center" fontStyle="italic">
-            'La nueva forma de relajarse'
+            SkyDelight: 'La nueva forma de relajarse'
           </Typography>
           <Copyright />
         </Container>

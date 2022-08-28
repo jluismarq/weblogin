@@ -14,6 +14,7 @@ import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
+import { useAlert } from "../hooks/useAlert";
 import { useNavigate } from "react-router-dom";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -21,7 +22,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import Swal from "sweetalert2";
 
 function Copyright(props) {
   return (
@@ -63,6 +63,7 @@ theme = responsiveFontSizes(theme);
 
 export default function Login() {
   const auth = useAuth();
+  const alert = useAlert();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -93,17 +94,10 @@ export default function Login() {
       })
       .then(() => {
         navigate("/", { replace: true });
+        alert.createAlert({severity:"success", message:"Autenticado correctamente"});
       }).catch(error => {
         console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error,
-          showConfirmButton: false,
-          timer: 3000,
-        }
-        )
-        props.resetForm();
+        alert.createAlert({severity:"error", message:"Usuario no registrado"});
         props.setSubmitting(false);
       });
   };
