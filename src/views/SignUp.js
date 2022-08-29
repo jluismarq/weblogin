@@ -7,13 +7,17 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import FormHelperText from "@mui/material/FormHelperText";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import InputAdornment from "@mui/material/InputAdornment";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -72,24 +76,29 @@ export default function SignUp() {
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const auth = useAuth();
   const alert = useAlert();
+  const navigate = useNavigate();
+
   const handleSubmit = (values, props) => {
-    
-    auth.signup({
-      name: values.name,
-      email: values.email,
-      edad: parseInt(values.edad),
-      sex: values.sex,
-      password: values.confirmpassword,
-    }).then((jsonResponse) => {
-      setTimeout(() => {
-        props.resetForm();
+    auth
+      .signup({
+        name: values.name,
+        email: values.email,
+        edad: parseInt(values.edad),
+        sex: values.sex,
+        password: values.confirmpassword,
+      })
+      .then(() => {
+        setTimeout(() => {
+          props.resetForm();
+          props.setSubmitting(false);
+        }, 2000);
+        navigate("/login", { replace: true });
+        alert.createAlert({ severity: "success", message: "Registro exitoso, ya puedes Iniciar Sesión" });   
+      })
+      .catch((error) => {
+        alert.createAlert({ severity: "error", message: " " + error });
         props.setSubmitting(false);
-      }, 2000);
-       alert.createAlert({severity:"success", message:"Registro exitoso"});
-    }).catch(error => {
-        alert.createAlert({severity:"error", message:" "+ error});
-        props.setSubmitting(false);
-    });
+      });
   };
 
   const initialValues = {
@@ -105,7 +114,10 @@ export default function SignUp() {
     name: Yup.string()
       .min(4, "Tu nombre es muy corto")
       .max(50, "Solo soportamos hasta 50 caracteres")
-      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g, "Solo las letras son válidas en este campo")
+      .matches(
+        /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
+        "Solo las letras son válidas en este campo"
+      )
       .required("El nombre es requerido"),
     email: Yup.string()
       .email("Ingrese un email válido")
@@ -352,7 +364,7 @@ export default function SignUp() {
                           borderRadius: 5,
                         }}
                       >
-                        {props.isSubmitting ? "Cargando" : "Crear Cuenta"}
+                        {props.isSubmitting ? "Registrando..." : "Crear Cuenta"}
                       </Button>
                     </Grid>
 
