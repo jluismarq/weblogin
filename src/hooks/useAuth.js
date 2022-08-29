@@ -29,7 +29,7 @@ function useProvideAuth() {
     //const abortCont = new AbortController();
     return token(data)
       .then((jsonResponse) => {
-        console.log(jsonResponse);
+        //console.log(jsonResponse);
         saveUser(jsonResponse.data);
       })
       .catch((err) => {
