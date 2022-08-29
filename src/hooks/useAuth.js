@@ -26,7 +26,7 @@ function useProvideAuth() {
   }
 
   const signin = async (data) => {
-    const abortCont = new AbortController();
+    //const abortCont = new AbortController();
     return token(data)
       .then((jsonResponse) => {
         console.log(jsonResponse);
@@ -40,7 +40,7 @@ function useProvideAuth() {
   };
 
   const signup = async (data) => {
-    const abortCont = new AbortController();
+    //const abortCont = new AbortController();
     return crearUsuario(data)
       .then((user) => {
         // saveUser(user.value);
@@ -56,13 +56,25 @@ function useProvideAuth() {
     saveUser(null);
   };
 
+
+  const updateUser = newuser => {
+    let newUserdata ={...user};
+    for (const key in newuser) {
+      if (newuser[key]) {
+        newUserdata[key]=newuser[key];
+      }
+    }
+    localStorage.setItem('user', JSON.stringify(newUserdata));
+    setUser(newUserdata);
+  };
+
   const sendPasswordResetEmail = async (email) => {
-    const abortCont = new AbortController();
+   
     //aqui la petición de axios para enviar la contraseña
   };
 
   const confirmPasswordReset = (token, password) => {
-    const abortCont = new AbortController();
+
     //aqui la petición de axios para cambiar la contraseña
   };
 
@@ -79,5 +91,6 @@ function useProvideAuth() {
     signout,
     sendPasswordResetEmail,
     confirmPasswordReset,
+    updateUser
   };
 }

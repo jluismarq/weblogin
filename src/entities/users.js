@@ -43,9 +43,24 @@ const cambiarPassword=(usuario)=>{
         )
 }
 
+const actualizarUsuario=(usuario)=>{
+    return axios({
+                url: 'usuarios/actualizar-informacion/',
+                method: 'PUT', 
+                baseURL: process.env.REACT_APP_BACKEND,
+                headers: {
+                    "KEY-CLIENT":process.env.REACT_APP_API_KEY,
+                    "Authorization": `Bearer ${usuario.access}` 
+                },
+                data: usuario,
+                }
+        )
+}
+
     export{
         crearUsuario,
         recuperarPassword,
         cambiarPassword,
-        token
+        token,
+        actualizarUsuario
     }

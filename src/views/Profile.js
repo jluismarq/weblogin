@@ -19,6 +19,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import * as Yup from "yup";
 import { Formik, Form, ErrorMessage } from "formik";
+import FormHelperText from "@mui/material/FormHelperText";
+import { useAuth } from "../hooks/useAuth";
+import { actualizarUsuario } from "../entities/users";
+import { useAlert } from "../hooks/useAlert";
 
 function Copyright(props) {
   return (
@@ -59,25 +63,42 @@ let theme = createTheme({
 theme = responsiveFontSizes(theme);
 
 export default function Profile() {
-  var User = localStorage.getItem("user");
-  var currentUser = JSON.parse(User);
+  
+  const auth = useAuth();
+  const alert = useAlert();
+  //console.log(auth);
+  //var User = localStorage.getItem("user");
+  //var currentUser = JSON.parse(User);
 
   //const [name, setName] = React.useState(currentUser.name);
   //const [edad, setEdad] = React.useState(currentUser.edad);
-  const [sex, setSex] = React.useState(currentUser.sex);
+  //const [sex, setSex] = React.useState(currentUser.sex);
 
-   const handleChange = (event) => {
-     setSex(event.target.value);
-   };
+  //  const handleChange = (event) => {
+  //    setSex(event.target.value);
+  //  };
 
   const handleSubmit = (values, props) => {
     console.log(values);
+    actualizarUsuario({
+      name: values.name,
+      sex: values.sex,
+      edad: values.edad,
+      access: auth.user.access,
+    }).then(() => {
+      auth.updateUser({
+        name: values.name,
+        sex: values.sex,
+        age: values.edad,
+      });
+      alert.createAlert({ severity: "success", message: "Perfil Actualizado" });
+    });
   };
 
   const initialValues = {
-    name: "",
-    edad: "",
-    sex: "",
+    name: auth.user.name,
+    sex: auth.user.sex,
+    edad: auth.user.age,
   };
 
   const validationSchema = Yup.object().shape({
@@ -106,7 +127,9 @@ export default function Profile() {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
+          enableReinitialize
           onSubmit={handleSubmit}
+
         >
           {(props) => (
             <Form>
@@ -127,10 +150,10 @@ export default function Profile() {
                     fontSize: "50px",
                   }}
                 >
-                  {currentUser.name.split(" ")[0][0]}
+                 {auth.user.name.split(" ")[0][0]} 
                 </Avatar>
                 <Typography component="h1" variant="h5" align="center">
-                  {currentUser.user}
+                 {auth.user.user}
                 </Typography>
                 <Box sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
@@ -142,42 +165,52 @@ export default function Profile() {
                         fullWidth
                         id="firstName"
                         label="Nombre"
-                        //value={props.values.name}
-                        defaultValue={currentUser.name}
+                        value={props.values.name}
+                        onChange={props.handleChange}
+                        //defaultValue={currentUser.name}
                         error={props.touched.name && Boolean(props.errors.name)}
                         helperText={<ErrorMessage name="name" />}
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <FormControl fullWidth>
+                    <FormControl
+                        fullWidth
+                        error={props.touched.sex && Boolean(props.errors.sex)}
+                      >
                         <InputLabel id="sex">Sexo</InputLabel>
                         <Select
                           labelId="sex"
                           name="sex"
                           id="sex"
-                          value={sex}
-                          //value={props.values.sex}
-                          defaultValue={currentUser.sex}
+                          value={props.values.sex}
                           label="Sexo"
-                          onChange={handleChange}
+                          onChange={props.handleChange}
                         >
                           <MenuItem value={"Masculino"}>Masculino</MenuItem>
                           <MenuItem value={"Femenino"}>Femenino</MenuItem>
                         </Select>
+                        {props.touched.sex && Boolean(props.errors.sex) && (
+                          <FormHelperText error>
+                            Por favor, Elige un Sexo
+                          </FormHelperText>
+                        )}
                       </FormControl>
                     </Grid>
 
                     <Grid item xs={12}>
                       <TextField
                         required
-                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                        //inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                         fullWidth
                         name="edad"
                         label="Edad"
                         id="edad"
-                        type="number"
-                        //value={props.values.edad}
-                        defaultValue={currentUser.age}
+                        //type="number"
+                        value={props.values.edad}
+                        onChange={props.handleChange}
+                        //defaultValue={currentUser.age}
+                        error={props.touched.edad && Boolean(props.errors.edad)}
+                        helperText={<ErrorMessage name="edad" />}
                       />
                     </Grid>
                   </Grid>
@@ -193,7 +226,7 @@ export default function Profile() {
                       borderRadius: 5,
                     }}
                   >
-                    Actualizar Perfil
+                    {props.isSubmitting ? "Actualizando..." : "Actualizar Perfil"}
                   </Button>
                 </Box>
               </Box>
