@@ -97,7 +97,7 @@ export default function Login() {
         alert.createAlert({severity:"success", message:"Autenticado correctamente"});
       }).catch(error => {
         console.log(error);
-        alert.createAlert({severity:"error", message:"Usuario no registrado"});
+        alert.createAlert({severity:"error", message:" " + error});
         props.setSubmitting(false);
       });
   };
