@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import { useAlert } from "../hooks/useAlert";
+//import { useAlert } from "../hooks/useAlert";
 
 
 let theme = createTheme({
@@ -48,7 +48,7 @@ export default function BarraSuperior() {
   const user = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
-  const alert = useAlert();
+  //const alert = useAlert();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -62,7 +62,7 @@ export default function BarraSuperior() {
     handleClose();
     user.signout();
     navigate("/", { replace: true });
-    alert.createAlert({ severity: "info", message: "Has Cerrado Sesión" });
+    //alert.createAlert({ severity: "info", message: "Has Cerrado Sesión" });
   };
 
   const StyledBadge = styled(Badge)(({ theme }) => ({
