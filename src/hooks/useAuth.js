@@ -91,6 +91,6 @@ function useProvideAuth() {
     signout,
     sendPasswordResetEmail,
     confirmPasswordReset,
-    updateUser
+    updateUser,
   };
 }

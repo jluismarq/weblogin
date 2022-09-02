@@ -9,7 +9,11 @@ import Box from "@mui/material/Box";
 import LoginIcon from "@mui/icons-material/Login";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -20,7 +24,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
-import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Copyright(props) {
   return (
@@ -67,7 +72,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
-  
+
   const initialValues = {
     email: "",
     password: "",
@@ -93,16 +98,17 @@ export default function Login() {
       })
       .then(() => {
         navigate("/", { replace: true });
-        alert.createAlert({severity:"success", message:"Autenticado correctamente"});
-      }).catch(error => {
+        alert.createAlert({
+          severity: "success",
+          message: "Autenticado correctamente",
+        });
+      })
+      .catch((error) => {
         console.log(error);
-        alert.createAlert({severity:"error", message:" " + error});
+        alert.createAlert({ severity: "error", message: " " + error });
         props.setSubmitting(false);
       });
   };
-  
-
-  
 
   return (
     <ThemeProvider theme={theme}>
@@ -175,7 +181,8 @@ export default function Login() {
                       ),
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton fontSize="small"
+                          <IconButton
+                            fontSize="small"
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
@@ -190,7 +197,7 @@ export default function Login() {
                     type="submit"
                     variant="contained"
                     fullWidth
-                    disabled={props.isSubmitting}
+                    disabled={!props.dirty || props.isSubmitting}
                     sx={{
                       mt: 2,
                       mb: 2,
@@ -200,9 +207,22 @@ export default function Login() {
                     }}
                   >
                     {props.isSubmitting
-                      ? "Iniciando Sesion..."
-                      : "Iniciar Sesion"}
+                      ? "Iniciando Sesión..."
+                      : "Iniciar Sesión"}
+                    {props.isSubmitting && (
+                      <CircularProgress
+                        size={24}
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          marginTop: "-12px",
+                          marginLeft: "-12px",
+                        }}
+                      />
+                    )}
                   </Button>
+
                   <Grid container>
                     <Grid item xs>
                       <NavLink

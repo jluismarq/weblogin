@@ -12,6 +12,7 @@ import {
   createTheme,
   ThemeProvider,
   responsiveFontSizes,
+  styled
 } from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -21,8 +22,14 @@ import * as Yup from "yup";
 import { Formik, Form, ErrorMessage } from "formik";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useAuth } from "../hooks/useAuth";
-import { actualizarUsuario } from "../entities/users";
+import { actualizarUsuario, eliminarUsuario} from "../entities/users";
 import { useAlert } from "../hooks/useAlert";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import InputAdornment from "@mui/material/InputAdornment";
+import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
+import CircularProgress from '@mui/material/CircularProgress';
+import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -62,10 +69,25 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme);
 
+const StyledAvatar = styled(Avatar)`
+  ${({ theme }) => `
+  cursor: pointer;
+  background-color: ${theme.palette.primary.main};
+  transition: ${theme.transitions.create(['background-color', 'transform'], {
+    duration: theme.transitions.duration.standard,
+  })};
+  &:hover {
+    background-color: #0096FF;
+    transform: scale(1.3);
+  }
+  `}
+`;
+
 export default function Profile() {
   
   const auth = useAuth();
   const alert = useAlert();
+  const navigate = useNavigate();
   //console.log(auth);
   //var User = localStorage.getItem("user");
   //var currentUser = JSON.parse(User);
@@ -79,7 +101,7 @@ export default function Profile() {
   //  };
 
   const handleSubmit = (values, props) => {
-    console.log(values);
+    //console.log(values);
     actualizarUsuario({
       name: values.name,
       sex: values.sex,
@@ -94,6 +116,32 @@ export default function Profile() {
       alert.createAlert({ severity: "success", message: "Perfil Actualizado" });
     });
   };
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "¡No podrás, revertir este cambio!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4979B8',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, bórrala!',
+      backdrop: `rgba(255,0,0,0.4)`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarUsuario({
+          email: auth.user.user,
+          access: auth.user.access,
+        }).then(()=>{
+          auth.signout();
+          navigate("/", { replace: true });
+          alert.createAlert({ severity: "warning", message: "Cuenta eliminada" });
+        }); 
+      }
+    })
+};
+
 
   const initialValues = {
     name: auth.user.name,
@@ -129,7 +177,6 @@ export default function Profile() {
           validationSchema={validationSchema}
           enableReinitialize
           onSubmit={handleSubmit}
-
         >
           {(props) => (
             <Form>
@@ -141,19 +188,19 @@ export default function Profile() {
                   alignItems: "center",
                 }}
               >
-                <Avatar
+                <StyledAvatar
                   sx={{
                     m: 1,
                     width: 100,
                     height: 100,
                     bgcolor: "#4979B8",
-                    fontSize: "50px",
+                    fontSize: "4rem",
                   }}
                 >
-                 {auth.user.name.split(" ")[0][0]} 
-                </Avatar>
+                  {auth.user.name.split("")[0][0]}
+                </StyledAvatar>
                 <Typography component="h1" variant="h5" align="center">
-                 {auth.user.user}
+                  {auth.user.user}
                 </Typography>
                 <Box sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
@@ -170,10 +217,17 @@ export default function Profile() {
                         //defaultValue={currentUser.name}
                         error={props.touched.name && Boolean(props.errors.name)}
                         helperText={<ErrorMessage name="name" />}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <PersonOutlineOutlinedIcon fontSize="small" />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
                     <Grid item xs={12}>
-                    <FormControl
+                      <FormControl
                         fullWidth
                         error={props.touched.sex && Boolean(props.errors.sex)}
                       >
@@ -205,12 +259,20 @@ export default function Profile() {
                         name="edad"
                         label="Edad"
                         id="edad"
-                        //type="number"
+                        type="number"
                         value={props.values.edad}
                         onChange={props.handleChange}
                         //defaultValue={currentUser.age}
+
                         error={props.touched.edad && Boolean(props.errors.edad)}
                         helperText={<ErrorMessage name="edad" />}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <CakeOutlinedIcon fontSize="small" />
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                     </Grid>
                   </Grid>
@@ -225,8 +287,35 @@ export default function Profile() {
                       background: "#4979B8",
                       borderRadius: 5,
                     }}
+                    disabled={!props.dirty || props.isSubmitting}
                   >
-                    {props.isSubmitting ? "Actualizando..." : "Actualizar Perfil"}
+                    {props.isSubmitting
+                      ? "Actualizando..."
+                      : "Actualizar Perfil"}
+                    {props.isSubmitting && (
+                      <CircularProgress
+                        size={24}
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          marginTop: "-12px",
+                          marginLeft: "-12px",
+                        }}
+                      />
+                    )}
+                  </Button>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    color="error"
+                    sx={{
+                      textTransform: "none",
+                      borderRadius: 5,
+                    }}
+                    onClick={()=> handleDelete()}
+                  >
+                    Eliminar Cuenta
                   </Button>
                 </Box>
               </Box>

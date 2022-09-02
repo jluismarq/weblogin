@@ -31,6 +31,7 @@ import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import { useAuth } from "../hooks/useAuth";
 import { useAlert } from "../hooks/useAlert";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Copyright(props) {
   return (
@@ -93,7 +94,10 @@ export default function SignUp() {
           props.setSubmitting(false);
         }, 2000);
         navigate("/login", { replace: true });
-        alert.createAlert({ severity: "success", message: "Registro exitoso, ya puedes Iniciar Sesión" });   
+        alert.createAlert({
+          severity: "success",
+          message: "Registro exitoso, ya puedes Iniciar Sesión",
+        });
       })
       .catch((error) => {
         alert.createAlert({ severity: "error", message: " " + error });
@@ -355,7 +359,7 @@ export default function SignUp() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        disabled={props.isSubmitting}
+                        disabled={!props.dirty || props.isSubmitting}
                         sx={{
                           mt: 1,
                           mb: 1,
@@ -365,6 +369,18 @@ export default function SignUp() {
                         }}
                       >
                         {props.isSubmitting ? "Registrando..." : "Crear Cuenta"}
+                        {props.isSubmitting && (
+                          <CircularProgress
+                            size={24}
+                            sx={{
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              marginTop: "-12px",
+                              marginLeft: "-12px",
+                            }}
+                          />
+                        )}
                       </Button>
                     </Grid>
 
