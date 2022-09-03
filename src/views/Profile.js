@@ -12,7 +12,7 @@ import {
   createTheme,
   ThemeProvider,
   responsiveFontSizes,
-  styled
+  styled,
 } from "@mui/material/styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,14 +22,20 @@ import * as Yup from "yup";
 import { Formik, Form, ErrorMessage } from "formik";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useAuth } from "../hooks/useAuth";
-import { actualizarUsuario, eliminarUsuario} from "../entities/users";
+import { actualizarUsuario, eliminarUsuario } from "../entities/users";
 import { useAlert } from "../hooks/useAlert";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import InputAdornment from "@mui/material/InputAdornment";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
-import CircularProgress from '@mui/material/CircularProgress';
-import Swal from 'sweetalert2';
+import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Copyright(props) {
   return (
@@ -73,7 +79,7 @@ const StyledAvatar = styled(Avatar)`
   ${({ theme }) => `
   cursor: pointer;
   background-color: ${theme.palette.primary.main};
-  transition: ${theme.transitions.create(['background-color', 'transform'], {
+  transition: ${theme.transitions.create(["background-color", "transform"], {
     duration: theme.transitions.duration.standard,
   })};
   &:hover {
@@ -84,21 +90,18 @@ const StyledAvatar = styled(Avatar)`
 `;
 
 export default function Profile() {
-  
   const auth = useAuth();
   const alert = useAlert();
   const navigate = useNavigate();
-  //console.log(auth);
-  //var User = localStorage.getItem("user");
-  //var currentUser = JSON.parse(User);
+  const [open, setOpen] = React.useState(false);
 
-  //const [name, setName] = React.useState(currentUser.name);
-  //const [edad, setEdad] = React.useState(currentUser.edad);
-  //const [sex, setSex] = React.useState(currentUser.sex);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  //  const handleChange = (event) => {
-  //    setSex(event.target.value);
-  //  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleSubmit = (values, props) => {
     //console.log(values);
@@ -118,30 +121,17 @@ export default function Profile() {
   };
 
   const handleDelete = () => {
-    Swal.fire({
-      title: '¿Estas seguro?',
-      text: "¡No podrás, revertir este cambio!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#4979B8',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: '¡Sí, bórrala!',
-      backdrop: `rgba(255,0,0,0.4)`
-    }).then((result) => {
-      if (result.isConfirmed) {
-        eliminarUsuario({
-          email: auth.user.user,
-          access: auth.user.access,
-        }).then(()=>{
-          auth.signout();
-          navigate("/", { replace: true });
-          alert.createAlert({ severity: "warning", message: "Cuenta eliminada" });
-        }); 
-      }
-    })
-};
-
+    console.log("eliminar cuenta");
+    handleClose();
+    eliminarUsuario({
+      email: auth.user.user,
+      access: auth.user.access,
+    }).then(() => {
+      auth.signout();
+      navigate("/", { replace: true });
+      alert.createAlert({ severity: "warning", message: "Cuenta eliminada" });
+    });
+  };
 
   const initialValues = {
     name: auth.user.name,
@@ -214,7 +204,6 @@ export default function Profile() {
                         label="Nombre"
                         value={props.values.name}
                         onChange={props.handleChange}
-                        //defaultValue={currentUser.name}
                         error={props.touched.name && Boolean(props.errors.name)}
                         helperText={<ErrorMessage name="name" />}
                         InputProps={{
@@ -254,7 +243,6 @@ export default function Profile() {
                     <Grid item xs={12}>
                       <TextField
                         required
-                        //inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                         fullWidth
                         name="edad"
                         label="Edad"
@@ -262,8 +250,6 @@ export default function Profile() {
                         type="number"
                         value={props.values.edad}
                         onChange={props.handleChange}
-                        //defaultValue={currentUser.age}
-
                         error={props.touched.edad && Boolean(props.errors.edad)}
                         helperText={<ErrorMessage name="edad" />}
                         InputProps={{
@@ -313,15 +299,79 @@ export default function Profile() {
                       textTransform: "none",
                       borderRadius: 5,
                     }}
-                    onClick={()=> handleDelete()}
+                    onClick={handleClickOpen}
+                    startIcon={<DeleteIcon />}
                   >
                     Eliminar Cuenta
                   </Button>
+                  <div>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                      PaperProps={{
+                        style: {
+                          boxShadow: "none",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 12,
+                        },
+                      }}
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        <Grid
+                          container
+                          alignItems="center"
+                        >
+                          <WarningAmberIcon sx={{ color: "#ffa726" }} />
+                          {"Eliminar Cuenta"}
+                        </Grid>
+        
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText
+                          id="alert-dialog-description"
+                          sx={{ textAlign: "center" }}
+                        >
+                          Al eliminar tu cuenta todos tus registros
+                          desaparecerán,&nbsp;
+                          <strong>¡No podrás, revertir este cambio!</strong>
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button
+                          onClick={handleDelete}
+                          sx={{
+                            textTransform: "none",
+                            borderRadius: 5,
+                          }}
+                          variant="outlined"
+                          startIcon={<DeleteIcon />}
+                        >
+                          ¡Sí, bórrala!
+                        </Button>
+                        <Button
+                          onClick={handleClose}
+                          sx={{
+                            textTransform: "none",
+                            borderRadius: 5,
+                          }}
+                          variant="outlined"
+                          autoFocus
+                          color="error"
+                        >
+                          Cancelar
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                  </div>
                 </Box>
               </Box>
             </Form>
           )}
         </Formik>
+
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>

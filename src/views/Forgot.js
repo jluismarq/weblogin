@@ -17,9 +17,9 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { recuperarPassword } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Swal from "sweetalert2";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Copyright(props) {
   return (
@@ -72,15 +72,6 @@ export default function Forgot() {
         props.resetForm();
         props.setSubmitting(false);
       }, 2000);
-
-      Swal.fire({
-        title: "Correo Enviado",
-        text: "Espera nuestro correo de recuperación",
-        icon: "success",
-        button: "Aceptar",
-        confirmButtonColor: "#4979B8",
-      });
-    });
   };
 
   const initialValues = {
@@ -150,7 +141,7 @@ export default function Forgot() {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    disabled={props.isSubmitting}
+                    disabled={!props.dirty || props.isSubmitting}
                     sx={{
                       mt: 2,
                       mb: 2,
@@ -160,8 +151,20 @@ export default function Forgot() {
                     }}
                   >
                     {props.isSubmitting
-                      ? "Cargando"
+                      ? "Enviando..."
                       : "Enviar Correo de Recuperación"}
+                      {props.isSubmitting && (
+                      <CircularProgress
+                        size={24}
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          marginTop: "-12px",
+                          marginLeft: "-12px",
+                        }}
+                      />
+                    )}
                   </Button>
                   <Grid
                     item
