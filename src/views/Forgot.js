@@ -65,13 +65,11 @@ export default function Forgot() {
     recuperarPassword({
       email: values.email,
     }).then((jsonResponse) => {
-      localStorage.setItem("access", jsonResponse.access);
-      localStorage.setItem("refresh", jsonResponse.refresh);
-
       setTimeout(() => {
         props.resetForm();
         props.setSubmitting(false);
       }, 2000);
+    });
   };
 
   const initialValues = {

@@ -6,8 +6,8 @@ import SignUp from "./SignUp";
 import Forgot from "./Forgot";
 import Change from "./Change";
 import Dashboard from "./Dashboard";
-import Start from "./Start";
 import Profile from "./Profile";
+import UpdatePassword from "./UpdatePassword";
 import { useAuth } from "../hooks/useAuth";
 
 const RoutesView = () => {
@@ -34,6 +34,7 @@ const RoutesView = () => {
       <Routes>
         <Route path="/" element={<Dashboard />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/updatepassword" element={<UpdatePassword />}></Route>
       </Routes>
     );
   };

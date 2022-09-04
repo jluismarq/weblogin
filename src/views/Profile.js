@@ -36,6 +36,10 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import { NavLink } from "react-router-dom";
+
+
 
 function Copyright(props) {
   return (
@@ -46,7 +50,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit">SkyDelight</Link> {new Date().getFullYear()}
+      SkyDelight {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -192,6 +196,18 @@ export default function Profile() {
                 <Typography component="h1" variant="h5" align="center">
                   {auth.user.user}
                 </Typography>
+                <Breadcrumbs aria-label="breadcrumb">
+                  <Link underline="hover" color="inherit" component={NavLink} to="/profile">
+                    Información Personal
+                  </Link>
+                  <Link
+                    underline="hover"
+                    color="inherit"
+                    component={NavLink} to="/updatepassword"
+                  >
+                   Contraseña
+                  </Link>
+                </Breadcrumbs>
                 <Box sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -320,14 +336,10 @@ export default function Profile() {
                       }}
                     >
                       <DialogTitle id="alert-dialog-title">
-                        <Grid
-                          container
-                          alignItems="center"
-                        >
+                        <Grid container alignItems="center">
                           <WarningAmberIcon sx={{ color: "#ffa726" }} />
                           {"Eliminar Cuenta"}
                         </Grid>
-        
                       </DialogTitle>
                       <DialogContent>
                         <DialogContentText
