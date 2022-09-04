@@ -20,13 +20,15 @@ import { useAuth } from "../hooks/useAuth";
 import { useAlert } from "../hooks/useAlert";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
-import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { NavLink } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
-
+import Chip from "@mui/material/Chip";
+import FaceIcon from "@mui/icons-material/Face";
+import { cambiarPassword } from "../entities/users";
 
 function Copyright(props) {
   return (
@@ -88,44 +90,40 @@ export default function UpdatePassword() {
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = (values, props) => {
-    // actualizarUsuario({
-    //   name: values.name,
-    //   sex: values.sex,
-    //   edad: values.edad,
-    //   access: auth.user.access,
-    // }).then(() => {
-    //   auth.updateUser({
-    //     name: values.name,
-    //     sex: values.sex,
-    //     age: values.edad,
-    //   });
-    //   alert.createAlert({ severity: "success", message: "Perfil Actualizado" });
-    // });
+    cambiarPassword({
+      email: auth.user.user,
+      password: values.confirmpassword,
+      access: auth.user.access,
+    }).then(() => {
+      auth.updateUser({
+        name: values.name,
+        sex: values.sex,
+        age: values.edad,
+      });
+      props.resetForm();
+      props.setSubmitting(false);
+      alert.createAlert({
+        severity: "success",
+        message: "Contraseña Actualizada",
+      });
+    });
   };
 
   const initialValues = {
-    name: auth.user.name,
-    sex: auth.user.sex,
-    edad: auth.user.age,
+    password: "",
+    confirmpassword: "",
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(4, "Tu nombre es muy corto")
+    password: Yup.string()
+      .matches(/^\S*$/, "Los espacios en blanco no son permitidos")
+      .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
       .max(50, "Solo soportamos hasta 50 caracteres")
-      .matches(
-        /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g,
-        "Solo las letras son válidas en este campo"
-      )
-      .required("El nombre es requerido"),
-    edad: Yup.number()
-      .integer("Debe ser un número entero")
-      .min(18, "La edad minima es de 17 años")
-      .max(25, "Sobrepasaste los límites de la juventud")
-      .required("La edad es requirida"),
-    sex: Yup.string()
-      .oneOf(["Masculino", "Femenino"])
-      .required("Por favor, elige un sexo"),
+      .required("El campo contraseña es requirido"),
+    confirmpassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Las contraseñas no coinciden")
+      .max(50, "Solo soportamos hasta 50 caracteres")
+      .required("La confirmación es requirida"),
   });
 
   return (
@@ -159,17 +157,26 @@ export default function UpdatePassword() {
                 >
                   {auth.user.name.split("")[0][0]}
                 </StyledAvatar>
-                <Typography component="h1" variant="h5" align="center">
-                  {auth.user.user}
-                </Typography>
+                <Chip
+                  icon={<FaceIcon fontSize="small" />}
+                  label={auth.user.user}
+                />
                 <Breadcrumbs aria-label="breadcrumb">
-                  <Link underline="hover" color="inherit" component={NavLink} to="/profile">
+                  <Link
+                    underline="hover"
+                    color="inherit"
+                    component={NavLink}
+                    to="/profile"
+                    variant="body2"
+                  >
                     Información Personal
                   </Link>
                   <Link
                     underline="hover"
                     color="inherit"
-                    component={NavLink} to="/updatepassword"
+                    component={NavLink}
+                    to="/updatepassword"
+                    variant="body2"
                   >
                     Contraseña
                   </Link>
@@ -177,14 +184,14 @@ export default function UpdatePassword() {
                 <Box sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                    <TextField
+                      <TextField
                         required
                         fullWidth
                         name="password"
-                        label="Contraseña"
+                        label="Nueva Contraseña"
                         type={showPassword ? "text" : "password"}
                         id="password"
-                        placeholder="Ingrese su Contraseña"
+                        placeholder="Ingrese nueva contraseña"
                         value={props.values.password}
                         onChange={props.handleChange}
                         error={
@@ -218,14 +225,14 @@ export default function UpdatePassword() {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                    <TextField
+                      <TextField
                         required
                         fullWidth
                         name="confirmpassword"
-                        label="Confirme su Contraseña"
+                        label="Confirme su nueva contraseña"
                         type={showPassword ? "text" : "password"}
                         id="confirmpassword"
-                        placeholder="Confirme su Contraseña"
+                        placeholder="Confirme su nueva contraseña"
                         value={props.values.confirmpassword}
                         onChange={props.handleChange}
                         error={
@@ -293,7 +300,6 @@ export default function UpdatePassword() {
             </Form>
           )}
         </Formik>
-
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>

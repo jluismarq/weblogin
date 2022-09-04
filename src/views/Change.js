@@ -74,7 +74,7 @@ export default function Change() {
       .max(50, "Solo soportamos hasta 50 caracteres")
       .required("El email es requirido"),
     password: Yup.string()
-      .matches(/^\S*$/, 'Los espacios en blanco no son permitidos')
+      .matches(/^\S*$/, "Los espacios en blanco no son permitidos")
       .min(8, "La contraseña debe tener un mínimo de 8 caracteres de longitud")
       .max(50, "Solo soportamos hasta 50 caracteres")
       .required("El campo contraseña es requirido"),
@@ -113,57 +113,53 @@ export default function Change() {
             {(props) => (
               <Form>
                 <Box sx={{ mt: 1 }}>
-                <TextField
-                        required
-                        fullWidth
-                        margin="normal"
-                        placeholder="Ingrese su Email"
-                        id="email"
-                        label="Email"
-                        name="email"
-                        autoComplete="email"
-                        value={props.values.email}
-                        onChange={props.handleChange}
-                        error={
-                          props.touched.email && Boolean(props.errors.email)
-                        }
-                        helperText={<ErrorMessage name="email" />}
-                      />
                   <TextField
-                        required
-                        fullWidth
-                        margin="normal"
-                        name="password"
-                        label="Contraseña"
-                        type="password"
-                        id="password"
-                        placeholder="Ingrese su Contraseña"
-                        value={props.values.password}
-                        onChange={props.handleChange}
-                        error={
-                          props.touched.password &&
-                          Boolean(props.errors.password)
-                        }
-                        helperText={<ErrorMessage name="password" />}
-                      />
+                    required
+                    fullWidth
+                    margin="normal"
+                    placeholder="Ingrese su Email"
+                    id="email"
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                    value={props.values.email}
+                    onChange={props.handleChange}
+                    error={props.touched.email && Boolean(props.errors.email)}
+                    helperText={<ErrorMessage name="email" />}
+                  />
                   <TextField
-                        required
-                        fullWidth
-                        margin="normal"
-                        name="confirmpassword"
-                        label="Confirme su Contraseña"
-                        type="password"
-                        id="confirmpassword"
-                        placeholder="Confirme su Contraseña"
-                        value={props.values.confirmpassword}
-                        onChange={props.handleChange}
-                        error={
-                          props.touched.confirmpassword &&
-                          Boolean(props.errors.confirmpassword)
-                        }
-                        helperText={<ErrorMessage name="confirmpassword" />}
-                      />
-
+                    required
+                    fullWidth
+                    margin="normal"
+                    name="password"
+                    label="Contraseña"
+                    type="password"
+                    id="password"
+                    placeholder="Ingrese su Contraseña"
+                    value={props.values.password}
+                    onChange={props.handleChange}
+                    error={
+                      props.touched.password && Boolean(props.errors.password)
+                    }
+                    helperText={<ErrorMessage name="password" />}
+                  />
+                  <TextField
+                    required
+                    fullWidth
+                    margin="normal"
+                    name="confirmpassword"
+                    label="Confirme su Contraseña"
+                    type="password"
+                    id="confirmpassword"
+                    placeholder="Confirme su Contraseña"
+                    value={props.values.confirmpassword}
+                    onChange={props.handleChange}
+                    error={
+                      props.touched.confirmpassword &&
+                      Boolean(props.errors.confirmpassword)
+                    }
+                    helperText={<ErrorMessage name="confirmpassword" />}
+                  />
                   <Button
                     type="submit"
                     variant="contained"

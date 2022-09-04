@@ -34,12 +34,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { NavLink } from "react-router-dom";
-
-
+import Chip from "@mui/material/Chip";
+import FaceIcon from "@mui/icons-material/Face";
 
 function Copyright(props) {
   return (
@@ -193,19 +193,28 @@ export default function Profile() {
                 >
                   {auth.user.name.split("")[0][0]}
                 </StyledAvatar>
-                <Typography component="h1" variant="h5" align="center">
-                  {auth.user.user}
-                </Typography>
+                <Chip
+                  icon={<FaceIcon fontSize="small" />}
+                  label={auth.user.user}
+                />
                 <Breadcrumbs aria-label="breadcrumb">
-                  <Link underline="hover" color="inherit" component={NavLink} to="/profile">
+                  <Link
+                    underline="hover"
+                    color="inherit"
+                    component={NavLink}
+                    to="/profile"
+                    variant="body2"
+                  >
                     Información Personal
                   </Link>
                   <Link
                     underline="hover"
                     color="inherit"
-                    component={NavLink} to="/updatepassword"
+                    component={NavLink}
+                    to="/updatepassword"
+                    variant="body2"
                   >
-                   Contraseña
+                    Contraseña
                   </Link>
                 </Breadcrumbs>
                 <Box sx={{ mt: 3 }}>
@@ -383,7 +392,6 @@ export default function Profile() {
             </Form>
           )}
         </Formik>
-
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>

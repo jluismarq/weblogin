@@ -37,7 +37,10 @@ const cambiarPassword=(usuario)=>{
                 url: 'usuarios/cambiar-contrasena/',
                 method: 'PUT', 
                 baseURL: process.env.REACT_APP_BACKEND,
-                headers: {"KEY-CLIENT":process.env.REACT_APP_API_KEY},
+                headers: {
+                    "KEY-CLIENT":process.env.REACT_APP_API_KEY,
+                    "Authorization": `Bearer ${usuario.access}` 
+                },
                 data: usuario,
                 }
         )
