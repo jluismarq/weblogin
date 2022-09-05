@@ -14,12 +14,13 @@ import {
 } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import { recuperarPassword } from "../entities/users";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useAuth } from "../hooks/useAuth";
+import { useAlert } from "../hooks/useAlert";
 
 function Copyright(props) {
   return (
@@ -60,16 +61,23 @@ let theme = createTheme({
 theme = responsiveFontSizes(theme);
 
 export default function Forgot() {
+  const auth = useAuth();
+  const alert = useAlert();
+
   const handleSubmit = (values, props) => {
     console.log(values);
-    recuperarPassword({
-      email: values.email,
-    }).then((jsonResponse) => {
-      setTimeout(() => {
-        props.resetForm();
-        props.setSubmitting(false);
-      }, 2000);
-    });
+    auth.sendPasswordResetEmail(
+      values.email,
+    ).then(() => {
+      alert.createAlert({ severity: "success", message: "Revisa tu correo para recuperar tu contraseña" });
+      props.resetForm();
+      props.setSubmitting(false);
+    }).catch((error) =>{
+      console.log(error);
+      alert.createAlert({ severity: "error", message: " " + error });
+      props.resetForm();
+      props.setSubmitting(false);
+    })
   };
 
   const initialValues = {

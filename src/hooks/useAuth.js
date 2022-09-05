@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
-import { token , crearUsuario } from "../entities/users";
+import { token , crearUsuario, recuperarPassword } from "../entities/users";
 
 const authContext = createContext();
 
@@ -69,8 +69,13 @@ function useProvideAuth() {
   };
 
   const sendPasswordResetEmail = async (email) => {
-   
     //aqui la petición de axios para enviar la contraseña
+    return recuperarPassword({email})
+    .catch((err) => {
+      throw Error(
+        "Ha ocurrido un error al recuperar la contraseña, intente de nuevo más tarde"
+      );
+    });
   };
 
   const confirmPasswordReset = (token, password) => {
