@@ -4,7 +4,7 @@ import Home from "./Home";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import Forgot from "./Forgot";
-import Change from "./Change";
+// import Change from "./Change";
 import Dashboard from "./Dashboard";
 import Profile from "./Profile";
 import UpdatePassword from "./UpdatePassword";
@@ -19,11 +19,9 @@ const RoutesView = () => {
     return(
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/forgot" element={<Forgot />}></Route>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
-        <Route path="/change" element={<Change />}></Route>
+        <Route path="/login" title="Inicio de sesión" element={<Login />}></Route>
+        <Route path="/signup" title="Registro" element={<SignUp />}></Route>
+        <Route path="/forgot" title="¿Ólvido su contraseña?" element={<Forgot />}></Route>
       </Routes>
     );
   };
@@ -32,9 +30,9 @@ const RoutesView = () => {
     console.log("renderUserMenu");
     return(
       <Routes>
-        <Route path="/" element={<Dashboard />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/updatepassword" element={<UpdatePassword />}></Route>
+        <Route path="/"  title="Dashboard" element={<Dashboard />}></Route>
+        <Route path="/profile" title="Perfil" element={<Profile />}></Route>
+        <Route path="/updatepassword" title="Cambio de contraseña" element={<UpdatePassword />}></Route>
       </Routes>
     );
   };
