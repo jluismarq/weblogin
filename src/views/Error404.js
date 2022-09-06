@@ -44,7 +44,7 @@ export default function Error404() {
     >
       <Typography variant="h1">Error 404</Typography>
       <Typography variant="h6">
-        La página que tu buscas no existe.
+        <strong>undefined</strong> - La página que tu buscas no existe.
       </Typography>
       <NavLink
           to="/"

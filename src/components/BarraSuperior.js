@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
+import { useLocation } from 'react-router-dom';
+
 //import { useAlert } from "../hooks/useAlert";
 
 let theme = createTheme({
@@ -42,12 +44,22 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme);
 
+const titles ={
+  "/": "Dashboard",
+  "/profile": "Perfil",
+  "/updatepassword":"Contraseña",
+};
 
 export default function BarraSuperior() {
   const user = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
-  //const alert = useAlert();
+  const location = useLocation();
+  const [title, setTitle] = React.useState(titles["/"]);
+ 
+  React.useEffect(() =>{
+    setTitle(titles[location.pathname]);
+  },[location.pathname]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -207,7 +219,7 @@ export default function BarraSuperior() {
                 color="inherit"
                 style={{ color: "white" }}
               >
-                {!user.user ? "SkyDelight" : "SkyDelight Dashboard"}
+                {!user.user ? "SkyDelight": "SkyDelight " + title} 
               </Typography>
             </NavLink>
             {!user.user ? renderStart() : renderUserMenu()}
