@@ -42,14 +42,14 @@ export default function Test() {
       <Title>Test de Vulnerabilidad al Estrés</Title>
       {!(test.length === 0) ? (
         <TableContainer>
-          <Table sx={{ minWidth: 650 }}>
+          <Table sx={{ minWidth: 650 }} size="small">
             <TableHead>
               <TableRow>
                 <TableCell>Fecha</TableCell>
                 {/* {console.log(test)} */}
                 {test[0] &&
                   test[0].preguntas.map((pregunta, index) => {
-                    return <TableCell>Pregunta {index + 1}</TableCell>;
+                    return <TableCell>{index + 1}</TableCell>;
                   })}
                 <TableCell align="right">Total</TableCell>
               </TableRow>
