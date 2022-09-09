@@ -5,6 +5,10 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SISCO from "../components/SISCO";
+import SVQ from "../components/SVQ";
+import CSES from "../components/CSES";
+import PSS from "../components/PSS";
+import SVS from "../components/SVS";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,11 +56,10 @@ const TestContainer = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example"
+          aria-label="pruebas psicométricas"
           scrollButtons="auto"
           allowScrollButtonsMobile
           variant="scrollable"
-          centered
         >
           <Tab label="sisco" {...a11yProps(0)} />
           <Tab label="svq" {...a11yProps(1)} />
@@ -69,16 +72,16 @@ const TestContainer = () => {
         <SISCO />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        svq
+        <SVQ />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        cses
+        <CSES/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        pss
+        <PSS />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        svs
+       <SVS/>
       </TabPanel>
     </Box>
   );
