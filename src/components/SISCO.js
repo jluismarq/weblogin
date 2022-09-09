@@ -39,7 +39,7 @@ export default function Test() {
 
   return (
     <React.Fragment>
-      <Title>Lista de Indicadores de Vulnerabilidad al Estrés</Title>
+      <Title>Inventario Sistématico Cognoscitivista</Title>
       {!(test.length === 0) ? (
         <TableContainer>
           <Table sx={{ minWidth: 650 }}>
