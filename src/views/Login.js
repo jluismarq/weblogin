@@ -26,6 +26,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
+import Link from "@mui/material/Link";
 
 function Copyright(props) {
   return (
@@ -222,31 +223,16 @@ export default function Login() {
                       />
                     )}
                   </Button>
-
                   <Grid container>
                     <Grid item xs>
-                      <NavLink
-                        to="/forgot"
-                        style={{
-                          fontWeight: "normal",
-                          fontSize: "0.875em",
-                          color: "#0645AD",
-                        }}
-                      >
+                      <Link component={NavLink} variant="body2" to="/forgot">
                         ¿Ólvido su contraseña?
-                      </NavLink>
+                      </Link>
                     </Grid>
                     <Grid item>
-                      <NavLink
-                        to="/signup"
-                        style={{
-                          fontWeight: "normal",
-                          fontSize: "0.875em",
-                          color: "#0645AD",
-                        }}
-                      >
+                      <Link variant="body2" component={NavLink} to="/signup">
                         {"¿Sin cuenta? Crea una"}
-                      </NavLink>
+                      </Link>
                     </Grid>
                   </Grid>
                 </Box>

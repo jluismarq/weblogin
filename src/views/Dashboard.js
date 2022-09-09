@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Chart from "../Dashcomponents/Chart";
-import Test from "../Dashcomponents/Test";
+import TestContainer from "../Dashcomponents/TestContainer";
 
 function Copyright(props) {
   return (
@@ -64,10 +64,10 @@ function DashboardContent() {
               <Chart />
             </Paper>
           </Grid>
-          {/* Recent Orders */}
+          {/* Test Realizados */}
           <Grid item xs={12} md={8} lg={9}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <Test />
+              <TestContainer />
             </Paper>
           </Grid>
         </Grid>

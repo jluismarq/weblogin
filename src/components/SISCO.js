@@ -4,10 +4,10 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Title from './Title';
+import Title from '../Dashcomponents/Title';
 import TableContainer from '@mui/material/TableContainer';
 import { useAuth } from "../hooks/useAuth";
-import { obtenerCuestionario } from "../entities/questionnarie";
+import { obtenerSISCO } from "../entities/questionnarie";
 
 function createData(jsonResponse) {
  return jsonResponse.data.data.map(Test => { 
@@ -65,7 +65,7 @@ export default function Test() {
 
   React.useEffect(() => {
     const fetchPrueba = () => {
-      obtenerCuestionario({
+      obtenerSISCO({
         email: auth.user.user,
         access: auth.user.access,
       }).then((jsonResponse) => {
@@ -78,7 +78,7 @@ export default function Test() {
 
   return (
     <React.Fragment>
-      <Title>En detalle</Title>
+      <Title>Inventario Sistémico Cognoscitivista</Title>
       <TableContainer>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>

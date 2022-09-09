@@ -32,6 +32,7 @@ import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import { useAuth } from "../hooks/useAuth";
 import { useAlert } from "../hooks/useAlert";
 import CircularProgress from "@mui/material/CircularProgress";
+import Link from "@mui/material/Link";
 
 function Copyright(props) {
   return (
@@ -383,20 +384,11 @@ export default function SignUp() {
                         )}
                       </Button>
                     </Grid>
-
                     <Grid container justifyContent="flex-end">
                       <Grid item>
-                        <NavLink
-                          to="/login"
-                          href="#"
-                          style={{
-                            fontWeight: "normal",
-                            fontSize: "0.875em",
-                            color: "#0645AD",
-                          }}
-                        >
+                        <Link variant="body2" component={NavLink} to="/login">
                           ¿Ya tienes una cuenta? Inicia Sesión
-                        </NavLink>
+                        </Link>
                       </Grid>
                     </Grid>
                   </Grid>

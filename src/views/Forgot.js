@@ -21,6 +21,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useAuth } from "../hooks/useAuth";
 import { useAlert } from "../hooks/useAlert";
+import Link from "@mui/material/Link";
 
 function Copyright(props) {
   return (
@@ -66,18 +67,22 @@ export default function Forgot() {
 
   const handleSubmit = (values, props) => {
     console.log(values);
-    auth.sendPasswordResetEmail(
-      values.email,
-    ).then(() => {
-      alert.createAlert({ severity: "success", message: "Revisa tu correo para recuperar tu contraseña" });
-      props.resetForm();
-      props.setSubmitting(false);
-    }).catch((error) =>{
-      console.log(error);
-      alert.createAlert({ severity: "error", message: " " + error });
-      props.resetForm();
-      props.setSubmitting(false);
-    })
+    auth
+      .sendPasswordResetEmail(values.email)
+      .then(() => {
+        alert.createAlert({
+          severity: "success",
+          message: "Revisa tu correo para recuperar tu contraseña",
+        });
+        props.resetForm();
+        props.setSubmitting(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert.createAlert({ severity: "error", message: " " + error });
+        props.resetForm();
+        props.setSubmitting(false);
+      });
   };
 
   const initialValues = {
@@ -159,7 +164,7 @@ export default function Forgot() {
                     {props.isSubmitting
                       ? "Enviando..."
                       : "Enviar Correo de Recuperación"}
-                      {props.isSubmitting && (
+                    {props.isSubmitting && (
                       <CircularProgress
                         size={24}
                         sx={{
@@ -172,14 +177,10 @@ export default function Forgot() {
                       />
                     )}
                   </Button>
-                  <Grid
-                    item
-                    align="center"
-                    style={{ fontWeight: "normal", fontSize: "0.875em" }}
-                  >
-                    <NavLink to="/" style={{ color: "#0645AD" }}>
-                      {"Ir a inicio"}
-                    </NavLink>
+                  <Grid item align="center">
+                    <Link variant="body2" component={NavLink} to="/">
+                      Ir a inicio
+                    </Link>
                   </Grid>
                 </Box>
               </Form>

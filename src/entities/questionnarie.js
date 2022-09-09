@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const obtenerCuestionario=(usuario)=>{
+const obtenerSISCO=(usuario)=>{
     return axios({
                 url: 'api/lista-testcisco-personal/',
                 method: 'POST', 
@@ -15,5 +15,5 @@ const obtenerCuestionario=(usuario)=>{
 }
 
 export{
-    obtenerCuestionario
+    obtenerSISCO
 }
