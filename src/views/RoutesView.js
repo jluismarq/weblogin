@@ -16,7 +16,6 @@ const RoutesView = () => {
   const user = useAuth();
 
   const renderStart = () => {
-    console.log("renderStart");
     return(
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -29,7 +28,6 @@ const RoutesView = () => {
   };
 
   const renderUserMenu = () => {
-    console.log("renderUserMenu");
     return(
       <Routes>
         <Route path="/" title="Dashboard" element={<Dashboard />}></Route>
