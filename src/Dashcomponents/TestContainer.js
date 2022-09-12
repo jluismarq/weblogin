@@ -8,6 +8,10 @@ import SISCO from "../components/SISCO";
 import SVQ from "../components/SVQ";
 import PSS from "../components/PSS";
 import SVS from "../components/SVS";
+import ChartSVQ from "../components/ChartSVQ";
+import ChartPSS from "../components/ChartPSS";
+import ChartSVS from "../components/ChartSVS";
+import ChartSISCO from "../components/ChartSISCO";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -68,15 +72,19 @@ const TestContainer = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
+        <ChartSISCO/>
         <SISCO />
       </TabPanel>
       <TabPanel value={value} index={1}>
+      <ChartSVQ/>
         <SVQ />
       </TabPanel>
       <TabPanel value={value} index={2}>
+        <ChartPSS/>
         <PSS />
       </TabPanel>
       <TabPanel value={value} index={3}>
+       <ChartSVS/>
        <SVS/>
       </TabPanel>
     </Box>

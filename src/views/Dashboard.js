@@ -4,8 +4,6 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import TestContainer from "../Dashcomponents/TestContainer";
-import ChartContainer from "../Dashcomponents/ChartContainer";
-//import ChartSISCO from "../components/ChartSISCO";
 
 import {
   createTheme,
@@ -69,16 +67,10 @@ function DashboardContent() {
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 360,
+                height: '100%'
               }}
             >
-              <ChartContainer />
-            </Paper>
-          </Grid>
-          {/* Test Realizados */}
-          <Grid item xs={12} md={8} lg={9}>
-            <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <TestContainer />
+              <TestContainer/>
             </Paper>
           </Grid>
         </Grid>

@@ -66,16 +66,16 @@ export default function ChartPSS() {
   console.log(data)
   return (
     <React.Fragment>
-      <Title>Lista de Indicadores de Vulnerabilidad al Estrés</Title>
+      <Title>Escala de Estrés Percibido</Title>
       <ResponsiveContainer height={240}>
         <LineChart
           data={data}
-          // margin={{
-          //   top: 16,
-          //   right: 16,
-          //   bottom: 0,
-          //   left: 24,
-          // }}
+          margin={{
+            top: 16,
+            right: 16,
+            bottom: 0,
+            left: 24,
+          }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis

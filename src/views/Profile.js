@@ -154,7 +154,7 @@ export default function Profile() {
       .required("El nombre es requerido"),
     edad: Yup.number()
       .integer("Debe ser un número entero")
-      .min(18, "La edad minima es de 17 años")
+      .min(18, "La edad minima es de 18 años")
       .max(25, "Sobrepasaste los límites de la juventud")
       .required("La edad es requirida"),
     sex: Yup.string()

@@ -4,7 +4,6 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Title from "../Dashcomponents/Title";
 import TableContainer from "@mui/material/TableContainer";
 import { useAuth } from "../hooks/useAuth";
 import { obtenerSVS } from "../entities/questionnarie";
@@ -122,10 +121,6 @@ export default function SVS() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - test.length) : 0;
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -137,8 +132,21 @@ export default function SVS() {
 
   return (
     <React.Fragment>
-      <Title>Lista de Indicadores de Vulnerabilidad al Estrés</Title>
-      <Button onClick={() => setOcultar(!ocultar)}>Ocultar</Button>
+       {!(test.length === 0) ? (
+          <Button
+            sx={{
+              mt: 2,
+              mb: 2,
+              textTransform: "none",
+              borderRadius: 5,
+            }}
+            onClick={() => setOcultar(!ocultar)}
+          >
+            Mostrar Respuestas
+          </Button>
+      ) : (
+        <></>
+      )}
       {!(test.length === 0) ? (
         <TableContainer>
           <Table size="small">
@@ -149,7 +157,7 @@ export default function SVS() {
                 {test[0] &&
                   !ocultar &&
                   test[0].preguntas.map((pregunta, index) => {
-                    return <TableCell>{index + 1}</TableCell>;
+                    return <TableCell>R:{index + 1}</TableCell>;
                   })}
                 <TableCell align="right">Total</TableCell>
               </TableRow>
@@ -183,7 +191,7 @@ export default function SVS() {
                 ))}
             </TableBody>
             <TableFooter>
-            <TableRow
+              <TableRow
                 sx={{
                   [`& .${tableCellClasses.root}`]: {
                     borderBottom: "none",
@@ -220,7 +228,7 @@ export default function SVS() {
           </Table>
         </TableContainer>
       ) : (
-        <Typography>No hay información disponible</Typography>
+        <Typography align="center">No hay información disponible</Typography>
       )}
     </React.Fragment>
   );

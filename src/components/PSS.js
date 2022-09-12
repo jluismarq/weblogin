@@ -4,7 +4,6 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Title from "../Dashcomponents/Title";
 import TableContainer from "@mui/material/TableContainer";
 import { useAuth } from "../hooks/useAuth";
 import { obtenerPSS } from "../entities/questionnarie";
@@ -105,6 +104,10 @@ export default function PSS() {
   const auth = useAuth();
   const [test, setTest] = React.useState([]);
   const [ocultar, setOcultar] = React.useState(true);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const emptyRows =
+  page > 0 ? Math.max(0, (1 + page) * rowsPerPage - test.length) : 0;
 
   React.useEffect(() => {
     const fetchPrueba = () => {
@@ -119,13 +122,6 @@ export default function PSS() {
     fetchPrueba();
   }, [auth.user.user, auth.user.access]);
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - test.length) : 0;
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -133,12 +129,25 @@ export default function PSS() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
+  }; 
 
   return (
     <React.Fragment>
-      <Title>Escala de Estrés Percibido</Title>
-      <Button onClick={() => setOcultar(!ocultar)}>Ocultar</Button>
+        {!(test.length === 0) ? (
+          <Button
+            sx={{
+              mt: 2,
+              mb: 2,
+              textTransform: "none",
+              borderRadius: 5,
+            }}
+            onClick={() => setOcultar(!ocultar)}
+          >
+            Mostrar Respuestas
+          </Button>
+      ) : (
+        <></>
+      )}
       {!(test.length === 0) ? (
         <TableContainer>
           <Table size="small">
@@ -146,10 +155,10 @@ export default function PSS() {
               <TableRow>
                 <TableCell>Fecha</TableCell>
                 {/* {console.log(test)} */}
-                {test[0] &&
-                  !ocultar &&
+                {!ocultar &&
+                  test[0] &&
                   test[0].preguntas.map((pregunta, index) => {
-                    return <TableCell>{index + 1}</TableCell>;
+                    return <TableCell>R:{index + 1}</TableCell>;
                   })}
                 <TableCell align="right">Total</TableCell>
               </TableRow>
@@ -181,9 +190,15 @@ export default function PSS() {
                     <TableCell align="right">{row.total}</TableCell>
                   </TableRow>
                 ))}
+
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
             </TableBody>
             <TableFooter>
-            <TableRow
+              <TableRow
                 sx={{
                   [`& .${tableCellClasses.root}`]: {
                     borderBottom: "none",
@@ -220,7 +235,7 @@ export default function PSS() {
           </Table>
         </TableContainer>
       ) : (
-        <Typography>No hay información disponible</Typography>
+        <Typography align="center">No hay información disponible</Typography>
       )}
     </React.Fragment>
   );
