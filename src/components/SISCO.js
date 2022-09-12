@@ -9,17 +9,18 @@ import TableContainer from "@mui/material/TableContainer";
 import { useAuth } from "../hooks/useAuth";
 import { obtenerSISCO } from "../entities/questionnarie";
 import { Typography } from "@mui/material";
-import Button from '@mui/material/Button';
-import TablePagination from '@mui/material/TablePagination';
-import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import TableFooter from '@mui/material/TableFooter';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
+import Button from "@mui/material/Button";
+import TablePagination from "@mui/material/TablePagination";
+import PropTypes from "prop-types";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import TableFooter from "@mui/material/TableFooter";
+import IconButton from "@mui/material/IconButton";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
+import { tableCellClasses } from "@mui/material/TableCell";
 
 function createData(jsonResponse) {
   return jsonResponse.data.data.map((Test) => {
@@ -56,30 +57,38 @@ function TablePaginationActions(props) {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label="first page"
+        aria-label="primera página"
       >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
-        aria-label="previous page"
+        aria-label="página anterior"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowRight />
+        ) : (
+          <KeyboardArrowLeft />
+        )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
+        aria-label="página siguiente"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowLeft />
+        ) : (
+          <KeyboardArrowRight />
+        )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
+        aria-label="última página"
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
   );
@@ -92,8 +101,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-
-export default function Test() {
+export default function SISCO() {
   const auth = useAuth();
   const [test, setTest] = React.useState([]);
   const [ocultar, setOcultar] = React.useState(true);
@@ -104,13 +112,11 @@ export default function Test() {
         email: auth.user.user,
         access: auth.user.access,
       }).then((jsonResponse) => {
-        // console.log(jsonResponse);
         setTest(createData(jsonResponse));
       });
     };
     fetchPrueba();
   }, [auth.user.user, auth.user.access]);
-
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -131,7 +137,7 @@ export default function Test() {
   return (
     <React.Fragment>
       <Title>Inventario Sistématico Cognoscitivista</Title>
-      <Button onClick={()=>setOcultar(!ocultar)}>Ocultar</Button>
+      <Button onClick={() => setOcultar(!ocultar)}>Ocultar</Button>
       {!(test.length === 0) ? (
         <TableContainer>
           <Table size="small">
@@ -141,17 +147,19 @@ export default function Test() {
                 {/* {console.log(test)} */}
                 {test[0] &&
                   !ocultar &&
-                    test[0].preguntas.map((pregunta, index) => {
+                  test[0].preguntas.map((pregunta, index) => {
                     return <TableCell>{index + 1}</TableCell>;
                   })}
                 <TableCell align="right">Total</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-
               {test &&
                 (rowsPerPage > 0
-                  ? test.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  ? test.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
                   : test
                 ).map((row) => (
                   <TableRow
@@ -161,37 +169,53 @@ export default function Test() {
                     <TableCell>
                       {new Date(row.created_at).toLocaleDateString()}
                     </TableCell>
-                    {!ocultar && row.preguntas.map((pregunta, index) => {
-                      return (
-                        <TableCell>
-                          {pregunta[Object.keys(pregunta)[0]]}
-                        </TableCell>
-                      );
-                    })}
+                    {!ocultar &&
+                      row.preguntas.map((pregunta, index) => {
+                        return (
+                          <TableCell>
+                            {pregunta[Object.keys(pregunta)[0]]}
+                          </TableCell>
+                        );
+                      })}
                     <TableCell align="right">{row.total}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>
             <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={3}
-              count={test.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'rows per page',
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
+              <TableRow
+                sx={{
+                  [`& .${tableCellClasses.root}`]: {
+                    borderBottom: "none",
+                  },
+                }}
+              >
+                <TablePagination
+                  rowsPerPageOptions={[
+                    5,
+                    10,
+                    25,
+                    { label: "Todos", value: -1 },
+                  ]}
+                  colSpan={3}
+                  count={test.length}
+                  rowsPerPage={rowsPerPage}
+                  labelDisplayedRows={({ from, to, count }) => {
+                    return "" + from + " - " + to + " de " + count;
+                  }}
+                  page={page}
+                  labelRowsPerPage={"Resultados por página"}
+                  SelectProps={{
+                    inputProps: {
+                      "aria-label": "filas por página",
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
           </Table>
         </TableContainer>
       ) : (

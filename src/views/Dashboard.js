@@ -1,28 +1,22 @@
 import * as React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Chart from "../Dashcomponents/Chart";
 import TestContainer from "../Dashcomponents/TestContainer";
+import ChartContainer from "../Dashcomponents/ChartContainer";
+//import ChartSISCO from "../components/ChartSISCO";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      SkyDelight {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 
-const mdTheme = createTheme({
+let theme = createTheme({
+  palette: {
+    mode: "light",
+  },
   typography: {
     fontFamily: [
       "-apple-system",
@@ -40,9 +34,26 @@ const mdTheme = createTheme({
   },
 });
 
+theme = responsiveFontSizes(theme);
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      SkyDelight {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
 function DashboardContent() {
   return (
-    <ThemeProvider theme={mdTheme}>
+    <ThemeProvider theme={theme}>
       <Box
         component="main"
         sx={{
@@ -58,10 +69,10 @@ function DashboardContent() {
                 p: 2,
                 display: "flex",
                 flexDirection: "column",
-                height: 240,
+                height: 360,
               }}
             >
-              <Chart />
+              <ChartContainer />
             </Paper>
           </Grid>
           {/* Test Realizados */}

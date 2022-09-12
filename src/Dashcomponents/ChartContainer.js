@@ -4,10 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import SISCO from "../components/SISCO";
-import SVQ from "../components/SVQ";
-import PSS from "../components/PSS";
-import SVS from "../components/SVS";
+import ChartSISCO from "../components/ChartSISCO";
+import ChartSVQ from "../components/ChartSVQ";
+import ChartPSS from "../components/ChartPSS";
+import ChartSVS from "../components/ChartSVS";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,7 +50,9 @@ const TestContainer = () => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+
+     
+    <Box sx={{ width: "100%", height: 350 }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
@@ -68,16 +70,16 @@ const TestContainer = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <SISCO />
+        <ChartSISCO />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <SVQ />
+        <ChartSVQ />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <PSS />
+        <ChartPSS />
       </TabPanel>
       <TabPanel value={value} index={3}>
-       <SVS/>
+       <ChartSVS/>
       </TabPanel>
     </Box>
   );
