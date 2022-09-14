@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import { useAuth } from "../hooks/useAuth";
 import { obtenerSISCO } from "../entities/questionnarie";
 import { Typography } from "@mui/material";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import TablePagination from "@mui/material/TablePagination";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -20,6 +20,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { tableCellClasses } from "@mui/material/TableCell";
+import Hidden from '@mui/material/Hidden';
 
 function createData(jsonResponse) {
   return jsonResponse.data.data.map((Test) => {
@@ -124,7 +125,7 @@ TablePaginationActions.propTypes = {
 export default function SISCO() {
   const auth = useAuth();
   const [test, setTest] = React.useState([]);
-  const [ocultar, setOcultar] = React.useState(true);
+  // const [ocultar, setOcultar] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -151,7 +152,7 @@ export default function SISCO() {
 
   return (
     <React.Fragment>
-      {!(test.length === 0) ? (
+      {/* {!(test.length === 0) ? (
         <Button
           sx={{
             mt: 2,
@@ -165,18 +166,18 @@ export default function SISCO() {
         </Button>
       ) : (
         <></>
-      )}
+      )} */}
       {!(test.length === 0) ? (
         <TableContainer>
           <Table size="small">
             <TableHead>
               <TableRow>
                 <TableCell>Fecha</TableCell>
-                {!ocultar &&
+                {/* {!ocultar &&
                   test[0] &&
                   test[0].preguntas.map((pregunta, index) => {
                     return <TableCell>R:{index + 1}</TableCell>;
-                  })}
+                  })} */}
                 <TableCell align="right">Total</TableCell>
               </TableRow>
             </TableHead>
@@ -196,14 +197,14 @@ export default function SISCO() {
                     <TableCell>
                       {new Date(row.created_at).toLocaleDateString()}
                     </TableCell>
-                    {!ocultar &&
+                    {/* {!ocultar &&
                       row.preguntas.map((pregunta, index) => {
                         return (
                           <TableCell>
                             {pregunta[Object.keys(pregunta)[0]]}
                           </TableCell>
                         );
-                      })}
+                      })} */}
                     <TableCell align="right">{row.total}</TableCell>
                   </TableRow>
                 ))}
@@ -216,13 +217,15 @@ export default function SISCO() {
                   },
                 }}
               >
+                <Hidden smUp>
                 <TablePagination
-                  rowsPerPageOptions={[
-                    5,
-                    10,
-                    25,
-                    { label: "Todos", value: -1 },
-                  ]}
+                  // rowsPerPageOptions={[
+                  //   5,
+                  //   10,
+                  //   25,
+                  //   { label: "Todos", value: -1 },
+                  // ]}
+                  rowsPerPageOptions={[]}
                   labelDisplayedRows={({ from, to, count }) => {
                     return "" + from + " - " + to + " de " + count;
                   }}
@@ -241,6 +244,35 @@ export default function SISCO() {
                   onRowsPerPageChange={handleChangeRowsPerPage}
                   ActionsComponent={TablePaginationActions}
                 />
+                </Hidden>
+                <Hidden smDown>
+                <TablePagination
+                  rowsPerPageOptions={[
+                    5,
+                    10,
+                    25,
+                    { label: "Todos", value: -1 },
+                  ]}
+                  // rowsPerPageOptions={[]}
+                  labelDisplayedRows={({ from, to, count }) => {
+                    return "" + from + " - " + to + " de " + count;
+                  }}
+                  SelectProps={{
+                    inputProps: {
+                      "aria-label": "filas por página",
+                    },
+                    native: true,
+                  }}
+                  colSpan={3}
+                  count={test.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  labelRowsPerPage={"Resultados por página"}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+                </Hidden>
               </TableRow>
             </TableFooter>
           </Table>

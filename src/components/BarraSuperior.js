@@ -18,7 +18,6 @@ import { useAuth } from "../hooks/useAuth";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { useLocation } from 'react-router-dom';
-
 //import { useAlert } from "../hooks/useAlert";
 
 let theme = createTheme({

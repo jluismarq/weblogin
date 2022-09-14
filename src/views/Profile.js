@@ -197,7 +197,7 @@ export default function Profile() {
                   icon={<FaceIcon fontSize="small" />}
                   label={auth.user.user}
                 />
-                <Breadcrumbs aria-label="breadcrumb">
+                <Breadcrumbs aria-label="breadcrumb"  separator="›" >
                   <Link
                     underline="hover"
                     color="inherit"

@@ -8,7 +8,7 @@ import TableContainer from "@mui/material/TableContainer";
 import { useAuth } from "../hooks/useAuth";
 import { obtenerPSS } from "../entities/questionnarie";
 import { Typography } from "@mui/material";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import TablePagination from "@mui/material/TablePagination";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -20,6 +20,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { tableCellClasses } from "@mui/material/TableCell";
+import Hidden from '@mui/material/Hidden';
 
 function createData(jsonResponse) {
   return jsonResponse.data.data.map((Test) => {
@@ -103,11 +104,9 @@ TablePaginationActions.propTypes = {
 export default function PSS() {
   const auth = useAuth();
   const [test, setTest] = React.useState([]);
-  const [ocultar, setOcultar] = React.useState(true);
+  // const [ocultar, setOcultar] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const emptyRows =
-  page > 0 ? Math.max(0, (1 + page) * rowsPerPage - test.length) : 0;
 
   React.useEffect(() => {
     const fetchPrueba = () => {
@@ -133,7 +132,7 @@ export default function PSS() {
 
   return (
     <React.Fragment>
-        {!(test.length === 0) ? (
+        {/* {!(test.length === 0) ? (
           <Button
             sx={{
               mt: 2,
@@ -147,7 +146,7 @@ export default function PSS() {
           </Button>
       ) : (
         <></>
-      )}
+      )} */}
       {!(test.length === 0) ? (
         <TableContainer>
           <Table size="small">
@@ -155,11 +154,11 @@ export default function PSS() {
               <TableRow>
                 <TableCell>Fecha</TableCell>
                 {/* {console.log(test)} */}
-                {!ocultar &&
+                {/* {!ocultar &&
                   test[0] &&
                   test[0].preguntas.map((pregunta, index) => {
                     return <TableCell>R:{index + 1}</TableCell>;
-                  })}
+                  })} */}
                 <TableCell align="right">Total</TableCell>
               </TableRow>
             </TableHead>
@@ -179,23 +178,17 @@ export default function PSS() {
                     <TableCell>
                       {new Date(row.created_at).toLocaleDateString()}
                     </TableCell>
-                    {!ocultar &&
+                    {/* {!ocultar &&
                       row.preguntas.map((pregunta, index) => {
                         return (
                           <TableCell>
                             {pregunta[Object.keys(pregunta)[0]]}
                           </TableCell>
                         );
-                      })}
+                      })} */}
                     <TableCell align="right">{row.total}</TableCell>
                   </TableRow>
                 ))}
-
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
             <TableFooter>
               <TableRow
@@ -205,6 +198,35 @@ export default function PSS() {
                   },
                 }}
               >
+                   <Hidden smUp>
+                <TablePagination
+                  // rowsPerPageOptions={[
+                  //   5,
+                  //   10,
+                  //   25,
+                  //   { label: "Todos", value: -1 },
+                  // ]}
+                  rowsPerPageOptions={[]}
+                  labelDisplayedRows={({ from, to, count }) => {
+                    return "" + from + " - " + to + " de " + count;
+                  }}
+                  SelectProps={{
+                    inputProps: {
+                      "aria-label": "filas por página",
+                    },
+                    native: true,
+                  }}
+                  colSpan={3}
+                  count={test.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  labelRowsPerPage={"Resultados por página"}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+                </Hidden>
+                <Hidden smDown>
                 <TablePagination
                   rowsPerPageOptions={[
                     5,
@@ -212,24 +234,26 @@ export default function PSS() {
                     25,
                     { label: "Todos", value: -1 },
                   ]}
-                  colSpan={3}
-                  count={test.length}
-                  rowsPerPage={rowsPerPage}
+                  // rowsPerPageOptions={[]}
                   labelDisplayedRows={({ from, to, count }) => {
                     return "" + from + " - " + to + " de " + count;
                   }}
-                  page={page}
-                  labelRowsPerPage={"Resultados por página"}
                   SelectProps={{
                     inputProps: {
                       "aria-label": "filas por página",
                     },
                     native: true,
                   }}
+                  colSpan={3}
+                  count={test.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  labelRowsPerPage={"Resultados por página"}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                   ActionsComponent={TablePaginationActions}
                 />
+                </Hidden>
               </TableRow>
             </TableFooter>
           </Table>
