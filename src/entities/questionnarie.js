@@ -44,7 +44,7 @@ const obtenerPSS=(usuario)=>{
 
 const obtenerSVS=(usuario)=>{
     return axios({
-                url: 'api/lista-testpss-personal/',
+                url: 'api/lista-testsvs-personal/',
                 method: 'POST', 
                 baseURL: process.env.REACT_APP_BACKEND,
                 headers: {
