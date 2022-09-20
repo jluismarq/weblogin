@@ -59,7 +59,7 @@ export default function ChartPSS() {
             left: 24,
           }}
         >
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <CartesianGrid stroke="#ccc"/>
           <XAxis
             dataKey="created_at"
             stroke={theme.palette.text.secondary}
@@ -83,13 +83,33 @@ export default function ChartPSS() {
           </YAxis>
           <Tooltip />
           <ReferenceLine
-            y={27}
+            y={13}
             label={{
               position: "insideTopRight",
-              value: "Estrés Extremo",
-              fill: "#D2001A",
+              value: "Estrés Leve",
+              fill: "#FECD70",
             }}
-            stroke="#D2001A"
+            stroke="#FECD70"
+            strokeDasharray="3 3"
+          />
+          <ReferenceLine
+            y={26}
+            label={{
+              position: "insideTopRight",
+              value: "Estrés Moderado",
+              fill: "#FFB72B",
+            }}
+            stroke="#FFB72B"
+            strokeDasharray="3 3"
+          />
+                    <ReferenceLine
+            y={40}
+            label={{
+              position: "insideTopRight",
+              value: "Estrés Severo",
+              fill: "#42855B",
+            }}
+            stroke="#42855B"
             strokeDasharray="3 3"
           />
           <Line

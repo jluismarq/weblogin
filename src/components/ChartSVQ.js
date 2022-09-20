@@ -59,7 +59,7 @@ export default function ChartSVQ() {
             left: 24,
           }}
         >
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <CartesianGrid stroke="#ccc"/>
           <XAxis
             dataKey="created_at"
             stroke={theme.palette.text.secondary}
@@ -83,10 +83,30 @@ export default function ChartSVQ() {
           </YAxis>
           <Tooltip />
           <ReferenceLine
-            y={96}
+            y={49}
             label={{
               position: "insideTopRight",
-              value: "Estrés Extremo",
+              value: "No es vulnerable al estrés",
+              fill: "#42855B",
+            }}
+            stroke="#42855B"
+            strokeDasharray="3 3"
+          />
+          <ReferenceLine
+            y={69}
+            label={{
+              position: "insideTopRight",
+              value: "Levemente vulnerable",
+              fill: "#FFB72B",
+            }}
+            stroke="#FFB72B"
+            strokeDasharray="3 3"
+          />
+          <ReferenceLine
+            y={95}
+            label={{
+              position: "insideTopRight",
+              value: "Vulnerabilidad Grave",
               fill: "#D2001A",
             }}
             stroke="#D2001A"

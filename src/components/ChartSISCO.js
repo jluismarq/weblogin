@@ -58,7 +58,7 @@ export default function Chart() {
             left: 24,
           }}
         >
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <CartesianGrid stroke="#ccc" />
           <XAxis
             dataKey="created_at"
             stroke={theme.palette.text.secondary}
@@ -82,10 +82,30 @@ export default function Chart() {
           </YAxis>
           <Tooltip />
           <ReferenceLine
-            y={67}
+            y={33}
             label={{
               position: "insideTopRight",
-              value: "Estrés Extremo",
+              value: "Estrés Leve",
+              fill: "#42855B",
+            }}
+            stroke="#42855B"
+            strokeDasharray="3 3"
+          />
+          <ReferenceLine
+            y={66}
+            label={{
+              position: "insideTopRight",
+              value: "Estrés Moderado",
+              fill: "#FFB72B",
+            }}
+            stroke="#FFB72B"
+            strokeDasharray="3 3"
+          />
+          <ReferenceLine
+            y={100}
+            label={{
+              position: "insideTopRight",
+              value: "Estrés Severo",
               fill: "#D2001A",
             }}
             stroke="#D2001A"
