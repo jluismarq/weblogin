@@ -10,7 +10,6 @@ import {
   ThemeProvider,
   responsiveFontSizes,
 } from "@mui/material/styles";
-import logo from "../assets/img/SkyDelight_logo.png";
 import CardHeader from "@mui/material/CardHeader";
 
 function Copyright() {
@@ -114,7 +113,7 @@ export default function Home() {
             >
               <img
                 className="logo"
-                src={logo}
+                src="https://github.com/jluismarq/Imagenes-SkyDelight/blob/main/Home/SkyDelight_logo.png?raw=true"
                 alt="SkyDelight"
                 style={{ width: "100%", height: "auto", maxWidth: "280px" }}
               />
