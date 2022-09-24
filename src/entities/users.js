@@ -74,12 +74,11 @@ const eliminarUsuario=(usuario)=>{
         )
 }
 
-
     export{
         crearUsuario,
         recuperarPassword,
         cambiarPassword,
         token,
         actualizarUsuario,
-        eliminarUsuario,
+        eliminarUsuario
     }

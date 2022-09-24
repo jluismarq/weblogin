@@ -76,6 +76,7 @@ export default function ChartPSS() {
                 textAnchor: "middle",
                 fill: theme.palette.text.primary,
                 ...theme.typography.body1,
+                fontWeight: "500",
               }}
             >
               Nivel de Estrés
@@ -87,9 +88,10 @@ export default function ChartPSS() {
             label={{
               position: "insideTopRight",
               value: "Estrés Leve",
-              fill: "#FECD70",
+              fill: "#42855B",
+              fontWeight: "500",
             }}
-            stroke="#FECD70"
+            stroke="#42855B"
             strokeDasharray="3 3"
           />
           <ReferenceLine
@@ -97,9 +99,10 @@ export default function ChartPSS() {
             label={{
               position: "insideTopRight",
               value: "Estrés Moderado",
-              fill: "#FFB72B",
+              fill: "#C28906",
+              fontWeight: "500",
             }}
-            stroke="#FFB72B"
+            stroke="#C28906"
             strokeDasharray="3 3"
           />
                     <ReferenceLine
@@ -107,9 +110,10 @@ export default function ChartPSS() {
             label={{
               position: "insideTopRight",
               value: "Estrés Severo",
-              fill: "#42855B",
+              fill: "#D2001A",
+              fontWeight: "500",
             }}
-            stroke="#42855B"
+            stroke="#D2001A"
             strokeDasharray="3 3"
           />
           <Line

@@ -11,6 +11,8 @@ import {
   responsiveFontSizes,
 } from "@mui/material/styles";
 import CardHeader from "@mui/material/CardHeader";
+import Button from "@mui/material/Button";
+import Hidden from '@mui/material/Hidden';
 
 function Copyright() {
   return (
@@ -47,6 +49,13 @@ const tiers = [
     ],
   },
 ];
+
+const downloadButton = {
+  color: "inherit",
+  textDecoration: "inherit",
+  textAlign:"center",
+  display:"block"
+};
 
 let theme = createTheme({
   palette: {
@@ -89,10 +98,12 @@ export default function Home() {
               sm={6}
               sx={{ marginTop: 5 }}
               order={{ xs: 2, sm: 1 }}
+              alignItems="center"
             >
               <Typography variant="h2" align="center" color="text.primary">
                 Bienvenido (a) a SkyDelight
               </Typography>
+              <Hidden smDown>
               <Typography
                 variant="h5"
                 sx={{ marginTop: 1, fontStyle: "italic" }}
@@ -101,6 +112,30 @@ export default function Home() {
               >
                 'La nueva forma de relajarse'
               </Typography>
+              </Hidden>
+              
+              <Hidden smUp>
+              <Box textAlign='center'>
+              <Button
+                variant="contained"
+                sx={{
+                  textTransform: "none",
+                  background: "#4979B8",
+                  borderRadius: 5,
+                  mt:2,
+                }}
+              >
+                <a
+                  href="https://github.com/jluismarq/Imagenes-SkyDelight/blob/main/skydelight.apk?raw=true"
+                  download="SkyDelight.apk"
+                  style={downloadButton}
+                >
+                  Descarga Nuestra Aplicación Android
+                </a>
+              </Button>
+              </Box>
+              </Hidden>
+
             </Grid>
             <Grid
               container
@@ -121,7 +156,7 @@ export default function Home() {
           </Grid>
         </Box>
 
-        <Grid rowSpacing={2} >
+        <Grid rowSpacing={2}>
           <Typography
             variant="h6"
             align="center"
@@ -189,8 +224,8 @@ export default function Home() {
         component="footer"
         sx={{
           py: 4,
-          mt: 'auto',
-          width: '100%',
+          mt: "auto",
+          width: "100%",
           backgroundColor: (theme) =>
             theme.palette.mode === "light"
               ? theme.palette.grey[200]

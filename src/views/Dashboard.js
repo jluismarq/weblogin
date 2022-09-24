@@ -55,11 +55,11 @@ function DashboardContent() {
       <Box
         component="main"
         sx={{
-          marginTop: 11,
+          marginTop: 15,
         }}
       >
         <Grid container spacing={2} justifyContent="center" alignItems="center">
-          {/* Chart */}
+          {/* Chart AND Table */}
           <Grid item xs={12} md={8} lg={9}>
             <Paper
               elevation={3}

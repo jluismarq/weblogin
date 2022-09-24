@@ -59,7 +59,7 @@ export default function ChartSVS() {
             left: 24,
           }}
         >
-          <CartesianGrid stroke="#ccc"/>
+          <CartesianGrid stroke="#ccc" />
           <XAxis
             dataKey="created_at"
             stroke={theme.palette.text.secondary}
@@ -76,6 +76,7 @@ export default function ChartSVS() {
                 textAnchor: "middle",
                 fill: theme.palette.text.primary,
                 ...theme.typography.body1,
+                fontWeight: "500",
               }}
             >
               Nivel de Estrés
@@ -88,6 +89,7 @@ export default function ChartSVS() {
               position: "insideTopRight",
               value: "No es vulnerable al estrés",
               fill: "#42855B",
+              fontWeight: "500",
             }}
             stroke="#42855B"
             strokeDasharray="3 3"
@@ -97,9 +99,10 @@ export default function ChartSVS() {
             label={{
               position: "insideTopRight",
               value: "Levemente vulnerable",
-              fill: "#FFB72B",
+              fill: "#C28906",
+              fontWeight: "500",
             }}
-            stroke="#FFB72B"
+            stroke="#C28906"
             strokeDasharray="3 3"
           />
           <ReferenceLine
@@ -107,7 +110,19 @@ export default function ChartSVS() {
             label={{
               position: "insideTopRight",
               value: "Vulnerabilidad Grave",
+              fill: "#EE7B00",
+              fontWeight: "500",
+            }}
+            stroke="#EE7B00"
+            strokeDasharray="3 3"
+          />
+          <ReferenceLine
+            y={4}
+            label={{
+              position: "insideTopRight",
+              value: "Vulnerabilidad Extrema",
               fill: "#D2001A",
+              fontWeight: "500",
             }}
             stroke="#D2001A"
             strokeDasharray="3 3"

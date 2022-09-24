@@ -75,6 +75,7 @@ export default function Chart() {
                 textAnchor: "middle",
                 fill: theme.palette.text.primary,
                 ...theme.typography.body1,
+                fontWeight: "500",
               }}
             >
               Nivel de Estrés
@@ -87,6 +88,7 @@ export default function Chart() {
               position: "insideTopRight",
               value: "Estrés Leve",
               fill: "#42855B",
+              fontWeight: "500",
             }}
             stroke="#42855B"
             strokeDasharray="3 3"
@@ -96,17 +98,19 @@ export default function Chart() {
             label={{
               position: "insideTopRight",
               value: "Estrés Moderado",
-              fill: "#FFB72B",
+              fill: "#C28906",
+              fontWeight: "500",
             }}
-            stroke="#FFB72B"
+            stroke="#C28906"
             strokeDasharray="3 3"
           />
           <ReferenceLine
-            y={100}
+            y={105}
             label={{
               position: "insideTopRight",
               value: "Estrés Severo",
               fill: "#D2001A",
+              fontWeight: "500",
             }}
             stroke="#D2001A"
             strokeDasharray="3 3"

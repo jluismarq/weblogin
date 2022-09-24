@@ -56,6 +56,7 @@ function useProvideAuth() {
     saveUser(null);
   };
 
+
   const updateUser = newuser => {
     let newUserdata ={...user};
     for (const key in newuser) {
@@ -78,6 +79,7 @@ function useProvideAuth() {
   };
 
   const confirmPasswordReset = (token, password) => {
+
     //aqui la petición de axios para cambiar la contraseña
   };
 

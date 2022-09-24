@@ -76,6 +76,7 @@ export default function ChartSVQ() {
                 textAnchor: "middle",
                 fill: theme.palette.text.primary,
                 ...theme.typography.body1,
+                fontWeight: "500",
               }}
             >
               Nivel de Estrés
@@ -83,31 +84,34 @@ export default function ChartSVQ() {
           </YAxis>
           <Tooltip />
           <ReferenceLine
-            y={49}
+            y={50}
             label={{
               position: "insideTopRight",
-              value: "No es vulnerable al estrés",
+              value: "Levemente vulnerable",
               fill: "#42855B",
+              fontWeight: "500",
             }}
             stroke="#42855B"
             strokeDasharray="3 3"
           />
           <ReferenceLine
-            y={69}
-            label={{
-              position: "insideTopRight",
-              value: "Levemente vulnerable",
-              fill: "#FFB72B",
-            }}
-            stroke="#FFB72B"
-            strokeDasharray="3 3"
-          />
-          <ReferenceLine
-            y={95}
+            y={70}
             label={{
               position: "insideTopRight",
               value: "Vulnerabilidad Grave",
+              fill: "#C28906",
+              fontWeight: "500",
+            }}
+            stroke="#C28906"
+            strokeDasharray="3 3"
+          />
+          <ReferenceLine
+            y={100}
+            label={{
+              position: "insideTopRight",
+              value: "Vulnerabilidad Extrema",
               fill: "#D2001A",
+              fontWeight: "500",
             }}
             stroke="#D2001A"
             strokeDasharray="3 3"
